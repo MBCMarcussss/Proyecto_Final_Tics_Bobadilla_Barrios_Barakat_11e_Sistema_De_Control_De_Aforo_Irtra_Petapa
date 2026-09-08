@@ -52,6 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnOut = document.getElementById("btnOut");
   const btnAuto = document.getElementById("btnAuto");
   const btnReset = document.getElementById("btnReset");
+  const metaIn = document.getElementById("metaIn");
+  const metaOut = document.getElementById("metaOut");
+  const metaAlarm = document.getElementById("metaAlarm");
 
   if (simulator) {
     const MAX = parseInt(maxEl.textContent, 10);
@@ -59,6 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let count = 0;
     let autoInterval = null;
     let audioCtx = null;
+    let flashInTimeout = null;
+    let flashOutTimeout = null;
 
     function beep() {
       try {
@@ -76,6 +81,19 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Web Audio no disponible: se omite el sonido silenciosamente */
       }
     }
+
+    function flashMeta(el, timeoutRef) {
+      el.textContent = "Detectado";
+      el.classList.add("is-flash");
+      clearTimeout(timeoutRef.id);
+      timeoutRef.id = setTimeout(() => {
+        el.textContent = "En espera";
+        el.classList.remove("is-flash");
+      }, 550);
+    }
+
+    const inFlashRef = { id: null };
+    const outFlashRef = { id: null };
 
     function render() {
       countEl.textContent = count;
@@ -96,6 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const wasAlert = simulator.dataset.state === "alert";
       simulator.dataset.state = state;
       statusEl.textContent = status;
+      metaAlarm.textContent = state === "alert" ? "Activa" : "Inactiva";
+      metaAlarm.classList.toggle("is-flash", state === "alert");
 
       if (state === "alert" && !wasAlert) beep();
 
@@ -108,12 +128,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function enter() {
-      if (count < MAX) count += 1;
+      if (count < MAX) {
+        count += 1;
+        flashMeta(metaIn, inFlashRef);
+      }
       render();
     }
 
     function exit() {
-      if (count > 0) count -= 1;
+      if (count > 0) {
+        count -= 1;
+        flashMeta(metaOut, outFlashRef);
+      }
       render();
     }
 
@@ -153,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   }
 
-  /* ---------- Contadores animados (sección Impacto) ---------- */
+  /* ---------- Contadores animados ---------- */
   const statNumbers = document.querySelectorAll(".stat__number");
 
   function animateCount(el) {
@@ -185,5 +211,42 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     statNumbers.forEach((el) => statObserver.observe(el));
+  }
+
+  /* ---------- Revelado del diagrama de arquitectura ---------- */
+  const diagram = document.getElementById("diagram");
+
+  if (diagram) {
+    diagram.style.opacity = "0";
+    diagram.style.transform = "translateY(16px)";
+    diagram.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+
+    const diagramObserver = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            diagram.style.opacity = "1";
+            diagram.style.transform = "translateY(0)";
+            obs.unobserve(diagram);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    diagramObserver.observe(diagram);
+  }
+
+  /* ---------- Botón volver arriba ---------- */
+  const backToTop = document.getElementById("backToTop");
+
+  if (backToTop) {
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("is-visible", window.scrollY > 600);
+    });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   }
 });
