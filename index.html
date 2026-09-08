@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro sitio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <header class="navbar">
+    <div class="navbar__brand">Studio<span>.</span></div>
+
+    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="navbar__menu" id="navMenu">
+      <a href="#inicio" class="navbar__link is-active">Inicio</a>
+      <a href="#proyecto" class="navbar__link">Proyecto</a>
+      <a href="#equipo" class="navbar__link">Equipo</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="section section--hero">
+      <div class="section__inner">
+        <p class="eyebrow">Bienvenido</p>
+        <h1>Construimos ideas que se sostienen en el tiempo.</h1>
+        <p class="lead">Esta es la base de la página: navegación, secciones y pie de página, lista para llenarse de contenido real.</p>
+      </div>
+    </section>
+
+    <section id="proyecto" class="section">
+      <div class="section__inner">
+        <h2>Proyecto</h2>
+        <p class="section__intro">Un espacio para describir en qué estamos trabajando y por qué importa.</p>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Objetivo</h3>
+            <p>Qué buscamos lograr con este proyecto y a quién le sirve.</p>
+          </article>
+          <article class="card">
+            <h3>Enfoque</h3>
+            <p>Cómo estamos abordando el problema paso a paso.</p>
+          </article>
+          <article class="card">
+            <h3>Estado actual</h3>
+            <p>En qué etapa va el proyecto hoy y qué sigue.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo" class="section section--alt">
+      <div class="section__inner">
+        <h2>Equipo</h2>
+        <p class="section__intro">Las personas detrás del proyecto.</p>
+
+        <div class="grid grid--people">
+          <article class="card card--person">
+            <div class="card__avatar">A</div>
+            <h3>Nombre Apellido</h3>
+            <p>Rol en el equipo</p>
+          </article>
+          <article class="card card--person">
+            <div class="card__avatar">B</div>
+            <h3>Nombre Apellido</h3>
+            <p>Rol en el equipo</p>
+          </article>
+          <article class="card card--person">
+            <div class="card__avatar">C</div>
+            <h3>Nombre Apellido</h3>
+            <p>Rol en el equipo</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>&copy; <span id="year"></span> Studio. Todos los derechos reservados.</p>
+      <nav class="footer__links">
+        <a href="#inicio">Inicio</a>
+        <a href="#proyecto">Proyecto</a>
+        <a href="#equipo">Equipo</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
