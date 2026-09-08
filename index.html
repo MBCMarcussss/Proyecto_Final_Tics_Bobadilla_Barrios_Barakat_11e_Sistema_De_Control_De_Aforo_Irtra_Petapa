@@ -8,13 +8,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
 </head>
 <body>
 
   <header class="navbar">
     <div class="navbar__inner">
-      <a href="#inicio" class="navbar__brand">Control de Aforo <span>IRTRA</span></a>
+      <a href="#inicio" class="navbar__brand">
+        <span class="navbar__mark">CA</span>
+        Control de Aforo <span>IRTRA</span>
+      </a>
 
       <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -23,10 +25,11 @@
       <nav class="navbar__menu" id="navMenu">
         <a href="#inicio" class="navbar__link">Inicio</a>
         <a href="#problema" class="navbar__link">Problema</a>
-        <a href="#proyecto" class="navbar__link">Proyecto</a>
+        <a href="#proyecto" class="navbar__link">Arquitectura</a>
         <a href="#componentes" class="navbar__link">Componentes</a>
         <a href="#funcionamiento" class="navbar__link">Funcionamiento</a>
-        <a href="#impacto" class="navbar__link">Impacto</a>
+        <a href="#especificaciones" class="navbar__link">Especificaciones</a>
+        <a href="#impacto" class="navbar__link">Impacto ODS</a>
         <a href="#equipo" class="navbar__link">Equipo</a>
       </nav>
     </div>
@@ -35,26 +38,31 @@
   <main>
 
     <!-- INICIO -->
-    <section id="inicio" class="section section--hero">
+    <section id="inicio" class="section section--dark section--hero">
       <div class="section__inner hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow">Proyecto de ingeniería · Arduino</p>
-          <h1>El aforo de IRTRA Petapa, controlado en tiempo real.</h1>
+          <p class="tag-pill">Proyecto final de tecnología · Simulado en Tinkercad</p>
+          <h1>Cuando la fila crece,<br><span class="text-cyan">el sistema lo sabe primero.</span></h1>
           <p class="lead">
-            Un sistema automático que cuenta ingresos y salidas en las zonas de espera,
-            muestra el aforo actual y alerta con luces y sonido antes de que se llegue al límite.
+            El Sistema de Control de Aforo IRTRA Petapa cuenta ingresos y salidas en tiempo real,
+            muestra el aforo de la zona de espera y activa una alerta visual y sonora antes de
+            llegar al límite permitido.
           </p>
           <div class="hero__badges">
-            <span class="badge">ODS 9 · Industria, innovación e infraestructura</span>
-            <span class="badge">ODS 11 · Ciudades y comunidades sostenibles</span>
+            <span class="badge badge--cyan">ODS 9 · Industria, innovación e infraestructura</span>
+            <span class="badge badge--green">ODS 11 · Ciudades y comunidades sostenibles</span>
           </div>
-          <a href="#funcionamiento" class="btn btn--ghost">Ver cómo funciona ↓</a>
+          <div class="hero__actions">
+            <a href="#funcionamiento" class="btn btn--solid">Ver cómo funciona</a>
+            <a href="#proyecto" class="btn btn--ghost">Ver arquitectura</a>
+          </div>
+          <p class="hero__credit">Desarrollado por el equipo del proyecto — <a href="#equipo">ver equipo ↓</a></p>
         </div>
 
         <div class="hero__widget">
           <div class="simulator" id="simulator" data-state="normal">
             <div class="simulator__header">
-              <span class="simulator__title">Aforo en vivo — zona de espera</span>
+              <span class="simulator__title">Simulación de aforo — zona de espera</span>
               <span class="simulator__light" id="simLight" aria-hidden="true"></span>
             </div>
 
@@ -76,7 +84,23 @@
               <button class="sim-btn sim-btn--auto" id="btnAuto" type="button">Simulación automática</button>
               <button class="sim-btn sim-btn--reset" id="btnReset" type="button">Reiniciar</button>
             </div>
-            <p class="simulator__note">Simulación del comportamiento real del sistema instalado en el parque.</p>
+
+            <div class="simulator__meta">
+              <div class="meta-row">
+                <span>Sensor de entrada</span>
+                <span class="meta-row__value" id="metaIn">En espera</span>
+              </div>
+              <div class="meta-row">
+                <span>Sensor de salida</span>
+                <span class="meta-row__value" id="metaOut">En espera</span>
+              </div>
+              <div class="meta-row">
+                <span>Alarma sonora</span>
+                <span class="meta-row__value" id="metaAlarm">Inactiva</span>
+              </div>
+            </div>
+
+            <p class="simulator__note">Comportamiento basado en el circuito diseñado y probado en Tinkercad.</p>
           </div>
         </div>
       </div>
@@ -85,34 +109,81 @@
     <!-- PROBLEMA -->
     <section id="problema" class="section">
       <div class="section__inner">
-        <p class="eyebrow">El problema</p>
-        <h2>El conteo manual no escala con la demanda del parque</h2>
+        <p class="eyebrow">Diagnóstico</p>
+        <h2>El conteo manual no distingue una fila llena de una vacía</h2>
+
         <div class="split">
           <p class="split__text">
             En las zonas de espera de las atracciones de IRTRA, el conteo de visitantes se realiza
-            manualmente. Esto genera riesgo de sobrecupo, dificulta llevar un control preciso del aforo
-            y puede comprometer la seguridad de los visitantes en los momentos de mayor demanda.
+            manualmente. Esto genera riesgo de sobrecupo, dificulta llevar un control preciso del
+            aforo y puede comprometer la seguridad de los visitantes en los momentos de mayor demanda.
           </p>
-          <ul class="check-list">
-            <li>Conteo dependiente de una persona, propenso a error humano</li>
-            <li>Sin visibilidad del aforo en tiempo real para el personal</li>
-            <li>Riesgo de sobrecupo en horarios de alta afluencia</li>
-            <li>Sin una alerta automática cuando se acerca el límite</li>
-          </ul>
+
+          <div class="stat-cards">
+            <div class="stat-card">
+              <span class="stat-card__tag stat-card__tag--red">Hoy</span>
+              <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
+              <p>Del conteo depende de que una persona esté observando la fila en todo momento.</p>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card__tag stat-card__tag--cyan">Hoy</span>
+              <span class="stat__number" data-target="0">0</span>
+              <p>Alertas automáticas existentes cuando la zona se acerca a su límite.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- PROYECTO -->
-    <section id="proyecto" class="section section--alt">
+    <!-- PROYECTO / ARQUITECTURA -->
+    <section id="proyecto" class="section section--dark">
       <div class="section__inner">
-        <p class="eyebrow">La solución</p>
-        <h2>Sistema de Control de Aforo IRTRA Petapa</h2>
-        <p class="section__intro">
-          Un sistema basado en Arduino que automatiza el conteo de ingresos y salidas en las zonas de
-          espera, muestra el aforo en tiempo real y activa una alerta visual y sonora al alcanzar el
-          límite permitido de la zona.
+        <p class="eyebrow eyebrow--dark">La solución</p>
+        <h2 class="text-white">Sensores de entrada, una unidad de control, dos formas de avisar</h2>
+        <p class="section__intro text-muted">
+          Dos sensores leen el paso de visitantes de forma continua; la unidad de control procesa
+          el conteo y decide cuándo activar la respuesta sobre la zona de espera.
         </p>
+
+        <div class="diagram" id="diagram">
+          <svg class="diagram__lines" viewBox="0 0 640 420" preserveAspectRatio="none" aria-hidden="true">
+            <line class="diagram__line" x1="320" y1="210" x2="140" y2="70"></line>
+            <line class="diagram__line" x1="320" y1="210" x2="500" y2="70"></line>
+            <line class="diagram__line" x1="320" y1="210" x2="140" y2="350"></line>
+            <line class="diagram__line" x1="320" y1="210" x2="500" y2="350"></line>
+          </svg>
+
+          <div class="diagram__node" style="left:21.9%; top:16.7%;">
+            <span class="diagram__label">Entrada</span>
+            <strong>Sensor de ingreso</strong>
+            <p>Detecta cada visitante que entra a la zona.</p>
+          </div>
+
+          <div class="diagram__node" style="left:78.1%; top:16.7%;">
+            <span class="diagram__label">Salida</span>
+            <strong>Sensor de egreso</strong>
+            <p>Detecta cada visitante que sale de la zona.</p>
+          </div>
+
+          <div class="diagram__node diagram__node--center" style="left:50%; top:50%;">
+            <span class="diagram__label diagram__label--center">Núcleo</span>
+            <strong>Unidad de control</strong>
+            <p>Procesa el conteo y compara contra el límite.</p>
+          </div>
+
+          <div class="diagram__node" style="left:21.9%; top:83.3%;">
+            <span class="diagram__label">Salida 1</span>
+            <strong>LED + buzzer</strong>
+            <p>Alerta visual y sonora al llegar al límite.</p>
+          </div>
+
+          <div class="diagram__node" style="left:78.1%; top:83.3%;">
+            <span class="diagram__label">Salida 2</span>
+            <strong>Pantalla de aforo</strong>
+            <p>Muestra el conteo actual en tiempo real.</p>
+          </div>
+        </div>
+
         <div class="tags">
           <span class="tag">Arduino UNO</span>
           <span class="tag">Sensores de conteo</span>
@@ -127,11 +198,12 @@
     <section id="componentes" class="section">
       <div class="section__inner">
         <p class="eyebrow">Hardware</p>
-        <h2>Componentes principales</h2>
-        <p class="section__intro">Las piezas que hacen posible el conteo automático y la alerta de aforo.</p>
+        <h2>Cinco componentes, una respuesta coordinada</h2>
+        <p class="section__intro">Elementos seleccionados por su facilidad de simulación y su rol dentro del circuito.</p>
 
         <div class="grid grid--components">
-          <article class="component-card">
+          <article class="component-card component-card--core">
+            <span class="component-card__tag">Núcleo del sistema</span>
             <span class="component-card__icon" aria-hidden="true">
               <svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="4"/><path d="M13 20h14M20 13v14"/></svg>
             </span>
@@ -177,58 +249,111 @@
     <!-- FUNCIONAMIENTO -->
     <section id="funcionamiento" class="section section--alt">
       <div class="section__inner">
-        <p class="eyebrow">Cómo funciona</p>
-        <h2>De la detección a la alerta, en cinco pasos</h2>
+        <p class="eyebrow">Ciclo operativo</p>
+        <h2>Cinco decisiones tomadas en tiempo real</h2>
+        <p class="section__intro">El sistema evalúa el conteo de forma continua y reacciona de manera autónoma, sin que el personal deba intervenir.</p>
 
         <ol class="timeline">
           <li class="timeline__step">
-            <span class="timeline__index">01</span>
+            <span class="timeline__index timeline__index--1">01</span>
             <div>
               <h3>Detección</h3>
               <p>Los sensores ubicados en la entrada y salida detectan el paso de cada visitante.</p>
+              <span class="timeline__tag">Sensores: entrada / salida</span>
             </div>
           </li>
           <li class="timeline__step">
-            <span class="timeline__index">02</span>
+            <span class="timeline__index timeline__index--2">02</span>
             <div>
               <h3>Conteo automático</h3>
               <p>El Arduino suma o resta del total según el sentido del movimiento, sin intervención manual.</p>
+              <span class="timeline__tag">Unidad: Arduino UNO</span>
             </div>
           </li>
           <li class="timeline__step">
-            <span class="timeline__index">03</span>
+            <span class="timeline__index timeline__index--3">03</span>
             <div>
               <h3>Comparación con el límite</h3>
               <p>El sistema compara el conteo actual contra el aforo máximo permitido para la zona.</p>
+              <span class="timeline__tag">Umbral: aforo máximo de la zona</span>
             </div>
           </li>
           <li class="timeline__step">
-            <span class="timeline__index">04</span>
+            <span class="timeline__index timeline__index--4">04</span>
             <div>
               <h3>Alerta</h3>
               <p>Al acercarse o alcanzar el límite, se activan las luces y el sonido para avisar al personal.</p>
+              <span class="timeline__tag">Salida: LED + buzzer</span>
             </div>
           </li>
           <li class="timeline__step">
-            <span class="timeline__index">05</span>
+            <span class="timeline__index timeline__index--5">05</span>
             <div>
               <h3>Visualización</h3>
               <p>El aforo actual se muestra en tiempo real para personal y visitantes.</p>
+              <span class="timeline__tag">Salida: pantalla de aforo</span>
             </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- IMPACTO / ODS -->
-    <section id="impacto" class="section">
+    <!-- ESPECIFICACIONES -->
+    <section id="especificaciones" class="section">
       <div class="section__inner">
-        <p class="eyebrow">Impacto</p>
-        <h2>Alineado con los Objetivos de Desarrollo Sostenible</h2>
+        <p class="eyebrow">Parámetros técnicos</p>
+        <h2>Matriz de especificaciones de comportamiento</h2>
+        <p class="section__intro">Configuración de respuesta para cada situación evaluada por el sistema, según el circuito simulado.</p>
+
+        <div class="table-wrap">
+          <table class="specs-table">
+            <thead>
+              <tr>
+                <th>Parámetro</th>
+                <th>Comportamiento asociado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Conteo de ingreso</td>
+                <td>El sensor de entrada incrementa el contador en 1 por cada visitante.</td>
+              </tr>
+              <tr>
+                <td>Conteo de salida</td>
+                <td>El sensor de salida disminuye el contador en 1 por cada visitante.</td>
+              </tr>
+              <tr>
+                <td>Umbral de advertencia</td>
+                <td>Se activa al alcanzar aproximadamente el 75% del aforo máximo de la zona.</td>
+              </tr>
+              <tr>
+                <td>Umbral de alerta máxima</td>
+                <td>Luces y sonido se activan al llegar al 100% del aforo permitido.</td>
+              </tr>
+              <tr>
+                <td>Reinicio de conteo</td>
+                <td>Disponible como control manual para el personal de la zona.</td>
+              </tr>
+              <tr>
+                <td>Visualización</td>
+                <td>El aforo actual se muestra y se actualiza de forma continua en pantalla.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACTO / ODS -->
+    <section id="impacto" class="section section--dark">
+      <div class="section__inner">
+        <p class="eyebrow eyebrow--dark">Alcance global</p>
+        <h2 class="text-white">Alineación con Objetivos de Desarrollo Sostenible</h2>
+        <p class="section__intro text-muted">Cómo un proyecto de ingeniería escolar aporta a metas reales de infraestructura y seguridad urbana.</p>
 
         <div class="grid grid--ods">
           <article class="ods-card">
-            <span class="ods-card__number">9</span>
+            <span class="ods-card__number ods-card__number--cyan">9</span>
             <div>
               <h3>Industria, innovación e infraestructura</h3>
               <p>Introduce tecnología accesible en la gestión de la infraestructura recreativa del parque, automatizando un proceso que hoy depende del conteo manual.</p>
@@ -236,7 +361,7 @@
           </article>
 
           <article class="ods-card">
-            <span class="ods-card__number">11</span>
+            <span class="ods-card__number ods-card__number--green">11</span>
             <div>
               <h3>Ciudades y comunidades sostenibles</h3>
               <p>Mejora la seguridad y la gestión de un espacio público de alta afluencia, un componente clave para comunidades más seguras y resilientes.</p>
@@ -244,52 +369,52 @@
           </article>
         </div>
 
-        <div class="stat-row" id="statRow">
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat__number" data-target="5">0</span>
+            <p>Componentes principales del circuito</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="5">0</span>
+            <p>Pasos del ciclo de funcionamiento</p>
+          </div>
           <div class="stat">
             <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
             <p>Conteo digital, sin registro manual</p>
           </div>
           <div class="stat">
-            <span class="stat__number" data-target="2">0</span>
-            <p>Sensores por zona: entrada y salida</p>
-          </div>
-          <div class="stat">
-            <span class="stat__number" data-target="24">0</span><span class="stat__suffix">/7</span>
-            <p>Monitoreo continuo del aforo</p>
-          </div>
-          <div class="stat">
             <span class="stat__number" data-target="1">0</span><span class="stat__suffix">s</span>
-            <p>Tiempo de respuesta de la alerta</p>
+            <p>Tiempo de respuesta simulado de la alerta</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- EQUIPO -->
-    <section id="equipo" class="section section--alt">
+    <section id="equipo" class="section">
       <div class="section__inner">
-        <p class="eyebrow">Quiénes lo hicieron</p>
-        <h2>Equipo</h2>
+        <p class="eyebrow">Autores del proyecto</p>
+        <h2>Equipo de desarrollo</h2>
         <p class="section__intro">Las personas detrás del Sistema de Control de Aforo IRTRA Petapa.</p>
 
         <div class="grid grid--people">
           <article class="card card--person">
-            <div class="card__avatar">A</div>
+            <div class="card__avatar card__avatar--blue">A</div>
             <h3>Nombre Apellido</h3>
             <p>Desarrollo de hardware</p>
           </article>
           <article class="card card--person">
-            <div class="card__avatar">B</div>
+            <div class="card__avatar card__avatar--cyan">B</div>
             <h3>Nombre Apellido</h3>
             <p>Programación del Arduino</p>
           </article>
           <article class="card card--person">
-            <div class="card__avatar">C</div>
+            <div class="card__avatar card__avatar--green">C</div>
             <h3>Nombre Apellido</h3>
             <p>Diseño y documentación</p>
           </article>
           <article class="card card--person">
-            <div class="card__avatar">D</div>
+            <div class="card__avatar card__avatar--navy">D</div>
             <h3>Nombre Apellido</h3>
             <p>Coordinación del proyecto</p>
           </article>
@@ -301,18 +426,28 @@
 
   <footer class="footer">
     <div class="footer__inner">
-      <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa.</p>
+      <div>
+        <p class="footer__brand">Sistema de Control de Aforo IRTRA Petapa</p>
+        <p class="footer__sub">Proyecto de ingeniería simulado en Tinkercad. Página informativa del proyecto.</p>
+      </div>
       <nav class="footer__links">
         <a href="#inicio">Inicio</a>
         <a href="#problema">Problema</a>
-        <a href="#proyecto">Proyecto</a>
+        <a href="#proyecto">Arquitectura</a>
         <a href="#componentes">Componentes</a>
         <a href="#funcionamiento">Funcionamiento</a>
+        <a href="#especificaciones">Especificaciones</a>
         <a href="#impacto">Impacto</a>
         <a href="#equipo">Equipo</a>
       </nav>
     </div>
+    <div class="footer__bottom">
+      <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa.</p>
+      <a href="#inicio" class="footer__top">Volver arriba ↑</a>
+    </div>
   </footer>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Volver arriba">↑</button>
 
   <script src="script.js"></script>
 </body>
