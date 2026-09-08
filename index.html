@@ -3,90 +3,311 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestro sitio</title>
+  <title>Sistema de Control de Aforo · IRTRA Petapa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header class="navbar">
-    <div class="navbar__brand">Studio<span>.</span></div>
+    <div class="navbar__inner">
+      <a href="#inicio" class="navbar__brand">Control de Aforo <span>IRTRA</span></a>
 
-    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
 
-    <nav class="navbar__menu" id="navMenu">
-      <a href="#inicio" class="navbar__link is-active">Inicio</a>
-      <a href="#proyecto" class="navbar__link">Proyecto</a>
-      <a href="#equipo" class="navbar__link">Equipo</a>
-    </nav>
+      <nav class="navbar__menu" id="navMenu">
+        <a href="#inicio" class="navbar__link">Inicio</a>
+        <a href="#problema" class="navbar__link">Problema</a>
+        <a href="#proyecto" class="navbar__link">Proyecto</a>
+        <a href="#componentes" class="navbar__link">Componentes</a>
+        <a href="#funcionamiento" class="navbar__link">Funcionamiento</a>
+        <a href="#impacto" class="navbar__link">Impacto</a>
+        <a href="#equipo" class="navbar__link">Equipo</a>
+      </nav>
+    </div>
   </header>
 
   <main>
+
+    <!-- INICIO -->
     <section id="inicio" class="section section--hero">
-      <div class="section__inner">
-        <p class="eyebrow">Bienvenido</p>
-        <h1>Construimos ideas que se sostienen en el tiempo.</h1>
-        <p class="lead">Esta es la base de la página: navegación, secciones y pie de página, lista para llenarse de contenido real.</p>
+      <div class="section__inner hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow">Proyecto de ingeniería · Arduino</p>
+          <h1>El aforo de IRTRA Petapa, controlado en tiempo real.</h1>
+          <p class="lead">
+            Un sistema automático que cuenta ingresos y salidas en las zonas de espera,
+            muestra el aforo actual y alerta con luces y sonido antes de que se llegue al límite.
+          </p>
+          <div class="hero__badges">
+            <span class="badge">ODS 9 · Industria, innovación e infraestructura</span>
+            <span class="badge">ODS 11 · Ciudades y comunidades sostenibles</span>
+          </div>
+          <a href="#funcionamiento" class="btn btn--ghost">Ver cómo funciona ↓</a>
+        </div>
+
+        <div class="hero__widget">
+          <div class="simulator" id="simulator" data-state="normal">
+            <div class="simulator__header">
+              <span class="simulator__title">Aforo en vivo — zona de espera</span>
+              <span class="simulator__light" id="simLight" aria-hidden="true"></span>
+            </div>
+
+            <div class="simulator__count">
+              <span class="simulator__number" id="simCount">0</span>
+              <span class="simulator__slash">/</span>
+              <span class="simulator__max" id="simMax">40</span>
+            </div>
+
+            <div class="simulator__bar">
+              <div class="simulator__bar-fill" id="simBar"></div>
+            </div>
+
+            <p class="simulator__status" id="simStatus">Aforo normal</p>
+
+            <div class="simulator__controls">
+              <button class="sim-btn sim-btn--in" id="btnIn" type="button">+ Ingreso</button>
+              <button class="sim-btn sim-btn--out" id="btnOut" type="button">− Salida</button>
+              <button class="sim-btn sim-btn--auto" id="btnAuto" type="button">Simulación automática</button>
+              <button class="sim-btn sim-btn--reset" id="btnReset" type="button">Reiniciar</button>
+            </div>
+            <p class="simulator__note">Simulación del comportamiento real del sistema instalado en el parque.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="proyecto" class="section">
+    <!-- PROBLEMA -->
+    <section id="problema" class="section">
       <div class="section__inner">
-        <h2>Proyecto</h2>
-        <p class="section__intro">Un espacio para describir en qué estamos trabajando y por qué importa.</p>
+        <p class="eyebrow">El problema</p>
+        <h2>El conteo manual no escala con la demanda del parque</h2>
+        <div class="split">
+          <p class="split__text">
+            En las zonas de espera de las atracciones de IRTRA, el conteo de visitantes se realiza
+            manualmente. Esto genera riesgo de sobrecupo, dificulta llevar un control preciso del aforo
+            y puede comprometer la seguridad de los visitantes en los momentos de mayor demanda.
+          </p>
+          <ul class="check-list">
+            <li>Conteo dependiente de una persona, propenso a error humano</li>
+            <li>Sin visibilidad del aforo en tiempo real para el personal</li>
+            <li>Riesgo de sobrecupo en horarios de alta afluencia</li>
+            <li>Sin una alerta automática cuando se acerca el límite</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-        <div class="grid">
-          <article class="card">
-            <h3>Objetivo</h3>
-            <p>Qué buscamos lograr con este proyecto y a quién le sirve.</p>
+    <!-- PROYECTO -->
+    <section id="proyecto" class="section section--alt">
+      <div class="section__inner">
+        <p class="eyebrow">La solución</p>
+        <h2>Sistema de Control de Aforo IRTRA Petapa</h2>
+        <p class="section__intro">
+          Un sistema basado en Arduino que automatiza el conteo de ingresos y salidas en las zonas de
+          espera, muestra el aforo en tiempo real y activa una alerta visual y sonora al alcanzar el
+          límite permitido de la zona.
+        </p>
+        <div class="tags">
+          <span class="tag">Arduino UNO</span>
+          <span class="tag">Sensores de conteo</span>
+          <span class="tag">Indicador luminoso</span>
+          <span class="tag">Alarma sonora</span>
+          <span class="tag">Monitoreo en tiempo real</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENTES -->
+    <section id="componentes" class="section">
+      <div class="section__inner">
+        <p class="eyebrow">Hardware</p>
+        <h2>Componentes principales</h2>
+        <p class="section__intro">Las piezas que hacen posible el conteo automático y la alerta de aforo.</p>
+
+        <div class="grid grid--components">
+          <article class="component-card">
+            <span class="component-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="4"/><path d="M13 20h14M20 13v14"/></svg>
+            </span>
+            <h3>Microcontrolador Arduino</h3>
+            <p>Recibe la señal de los sensores, lleva el conteo y decide cuándo activar la alerta.</p>
           </article>
-          <article class="card">
-            <h3>Enfoque</h3>
-            <p>Cómo estamos abordando el problema paso a paso.</p>
+
+          <article class="component-card">
+            <span class="component-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13"/><path d="M20 13v7l5 4"/></svg>
+            </span>
+            <h3>Sensores de entrada y salida</h3>
+            <p>Detectan el paso de cada visitante para sumar o restar del conteo automáticamente.</p>
           </article>
-          <article class="card">
-            <h3>Estado actual</h3>
-            <p>En qué etapa va el proyecto hoy y qué sigue.</p>
+
+          <article class="component-card">
+            <span class="component-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><circle cx="20" cy="14" r="7"/><path d="M14 33l6-12 6 12"/></svg>
+            </span>
+            <h3>Indicador luminoso</h3>
+            <p>Cambia de color según el nivel de aforo: normal, advertencia y límite alcanzado.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><path d="M8 20a12 12 0 0 1 24 0"/><path d="M20 20v13"/></svg>
+            </span>
+            <h3>Alarma sonora</h3>
+            <p>Emite una señal audible para el personal cuando se llega al límite de la zona.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><rect x="5" y="11" width="30" height="18" rx="3"/><path d="M12 29v4h16v-4"/></svg>
+            </span>
+            <h3>Pantalla de aforo</h3>
+            <p>Muestra el conteo actual frente a la zona de espera, visible para personal y visitantes.</p>
           </article>
         </div>
       </div>
     </section>
 
+    <!-- FUNCIONAMIENTO -->
+    <section id="funcionamiento" class="section section--alt">
+      <div class="section__inner">
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>De la detección a la alerta, en cinco pasos</h2>
+
+        <ol class="timeline">
+          <li class="timeline__step">
+            <span class="timeline__index">01</span>
+            <div>
+              <h3>Detección</h3>
+              <p>Los sensores ubicados en la entrada y salida detectan el paso de cada visitante.</p>
+            </div>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__index">02</span>
+            <div>
+              <h3>Conteo automático</h3>
+              <p>El Arduino suma o resta del total según el sentido del movimiento, sin intervención manual.</p>
+            </div>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__index">03</span>
+            <div>
+              <h3>Comparación con el límite</h3>
+              <p>El sistema compara el conteo actual contra el aforo máximo permitido para la zona.</p>
+            </div>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__index">04</span>
+            <div>
+              <h3>Alerta</h3>
+              <p>Al acercarse o alcanzar el límite, se activan las luces y el sonido para avisar al personal.</p>
+            </div>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__index">05</span>
+            <div>
+              <h3>Visualización</h3>
+              <p>El aforo actual se muestra en tiempo real para personal y visitantes.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- IMPACTO / ODS -->
+    <section id="impacto" class="section">
+      <div class="section__inner">
+        <p class="eyebrow">Impacto</p>
+        <h2>Alineado con los Objetivos de Desarrollo Sostenible</h2>
+
+        <div class="grid grid--ods">
+          <article class="ods-card">
+            <span class="ods-card__number">9</span>
+            <div>
+              <h3>Industria, innovación e infraestructura</h3>
+              <p>Introduce tecnología accesible en la gestión de la infraestructura recreativa del parque, automatizando un proceso que hoy depende del conteo manual.</p>
+            </div>
+          </article>
+
+          <article class="ods-card">
+            <span class="ods-card__number">11</span>
+            <div>
+              <h3>Ciudades y comunidades sostenibles</h3>
+              <p>Mejora la seguridad y la gestión de un espacio público de alta afluencia, un componente clave para comunidades más seguras y resilientes.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="stat-row" id="statRow">
+          <div class="stat">
+            <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
+            <p>Conteo digital, sin registro manual</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="2">0</span>
+            <p>Sensores por zona: entrada y salida</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="24">0</span><span class="stat__suffix">/7</span>
+            <p>Monitoreo continuo del aforo</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="1">0</span><span class="stat__suffix">s</span>
+            <p>Tiempo de respuesta de la alerta</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPO -->
     <section id="equipo" class="section section--alt">
       <div class="section__inner">
+        <p class="eyebrow">Quiénes lo hicieron</p>
         <h2>Equipo</h2>
-        <p class="section__intro">Las personas detrás del proyecto.</p>
+        <p class="section__intro">Las personas detrás del Sistema de Control de Aforo IRTRA Petapa.</p>
 
         <div class="grid grid--people">
           <article class="card card--person">
             <div class="card__avatar">A</div>
             <h3>Nombre Apellido</h3>
-            <p>Rol en el equipo</p>
+            <p>Desarrollo de hardware</p>
           </article>
           <article class="card card--person">
             <div class="card__avatar">B</div>
             <h3>Nombre Apellido</h3>
-            <p>Rol en el equipo</p>
+            <p>Programación del Arduino</p>
           </article>
           <article class="card card--person">
             <div class="card__avatar">C</div>
             <h3>Nombre Apellido</h3>
-            <p>Rol en el equipo</p>
+            <p>Diseño y documentación</p>
+          </article>
+          <article class="card card--person">
+            <div class="card__avatar">D</div>
+            <h3>Nombre Apellido</h3>
+            <p>Coordinación del proyecto</p>
           </article>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
     <div class="footer__inner">
-      <p>&copy; <span id="year"></span> Studio. Todos los derechos reservados.</p>
+      <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa.</p>
       <nav class="footer__links">
         <a href="#inicio">Inicio</a>
+        <a href="#problema">Problema</a>
         <a href="#proyecto">Proyecto</a>
+        <a href="#componentes">Componentes</a>
+        <a href="#funcionamiento">Funcionamiento</a>
+        <a href="#impacto">Impacto</a>
         <a href="#equipo">Equipo</a>
       </nav>
     </div>
