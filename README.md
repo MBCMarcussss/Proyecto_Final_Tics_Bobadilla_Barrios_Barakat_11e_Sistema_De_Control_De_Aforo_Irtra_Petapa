@@ -1,2 +1,2 @@
-# ProyectoFinalTicsBobadillaBarriosBarakat11eSistemaDeControlDeAforoIrtraPetapa
+# Proyecto_Final_Tics_Bobadilla_Barrios_Barakat_11e_Sistema_De_Control_De_Aforo_Irtra_Petapa
 Proyecto final TICS 
