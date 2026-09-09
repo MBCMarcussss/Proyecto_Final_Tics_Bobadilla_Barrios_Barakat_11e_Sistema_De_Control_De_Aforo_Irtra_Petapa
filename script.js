@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  /* ---------- Año dinámico ---------- */
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
   /* ---------- Menú móvil ---------- */
   const toggle = document.getElementById("navToggle");
   const menu = document.getElementById("navMenu");
@@ -50,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnReset = document.getElementById("btnReset");
   const metaIn = document.getElementById("metaIn");
   const metaOut = document.getElementById("metaOut");
-  const metaRgb = document.getElementById("metaRgb");
   const metaAlarm = document.getElementById("metaAlarm");
 
   if (simulator) {
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         osc.start();
         osc.stop(audioCtx.currentTime + 0.35);
       } catch (e) {
-        /* Web Audio no disponible */
+        /* Web Audio no disponible: se omite el sonido silenciosamente */
       }
     }
 
@@ -96,28 +99,21 @@ document.addEventListener("DOMContentLoaded", () => {
       barEl.style.width = `${Math.min(ratio * 100, 100)}%`;
 
       let state = "normal";
-      let status = "Aforo disponible (LCD: Disponible)";
-      let rgbText = "Verde / ON";
+      let status = "Aforo normal";
 
       if (count >= MAX) {
         state = "alert";
-        status = "¡Aforo máximo alcanzado! (LCD: ZONA LLENA)";
-        rgbText = "Rojo / ON";
+        status = "Aforo máximo alcanzado — alerta activa";
       } else if (ratio >= WARNING_RATIO) {
         state = "warning";
-        status = "Aforo cerca del límite (LCD: Precaucion)";
-        rgbText = "Amarillo / ON";
+        status = "Aforo alto — acercándose al límite";
       }
 
       const wasAlert = simulator.dataset.state === "alert";
       simulator.dataset.state = state;
       statusEl.textContent = status;
-      
-      if (metaRgb) metaRgb.textContent = rgbText;
-      if (metaAlarm) {
-        metaAlarm.textContent = state === "alert" ? "¡Pita 1 vez!" : "Inactivo";
-        metaAlarm.classList.toggle("is-flash", state === "alert");
-      }
+      metaAlarm.textContent = state === "alert" ? "Activa" : "Inactiva";
+      metaAlarm.classList.toggle("is-flash", state === "alert");
 
       if (state === "alert" && !wasAlert) beep();
 
@@ -168,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnAuto.classList.add("is-active");
       btnAuto.textContent = "Detener simulación";
       autoInterval = setInterval(() => {
-        const goingIn = Math.random() > 0.35;
+        const goingIn = Math.random() > 0.32;
         if (goingIn) enter(); else exit();
       }, 700);
     }
@@ -244,11 +240,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (backToTop) {
     window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("is-visible", window.scrollY > 400);
+      backToTop.classList.toggle("is-visible", window.scrollY > 600);
     });
 
     backToTop.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ---------- Placeholders de la sección Evidencia ---------- */
+  // Mientras no subas las imágenes/videos reales a la carpeta "media/",
+  // cada tarjeta muestra un aviso en vez de un ícono roto.
+  function showPlaceholderOnError(mediaId, placeholderId) {
+    const mediaEl = document.getElementById(mediaId);
+    const placeholderEl = document.getElementById(placeholderId);
+    if (!mediaEl || !placeholderEl) return;
+
+    const reveal = () => {
+      mediaEl.classList.add("is-hidden");
+      placeholderEl.hidden = false;
+    };
+
+    mediaEl.addEventListener("error", reveal, true);
+
+    // Si después de un momento el recurso no cargó nada (sin dimensiones/duración),
+    // también mostramos el aviso — cubre el caso de archivos que aún no existen.
+    setTimeout(() => {
+      const isImg = mediaEl.tagName === "IMG";
+      const notLoaded = isImg
+        ? !mediaEl.complete || mediaEl.naturalWidth === 0
+        : mediaEl.readyState === 0 && !mediaEl.currentSrc;
+      if (notLoaded) reveal();
+    }, 1200);
+  }
+
+  showPlaceholderOnError("mediaImgSim", "mediaImgSimPlaceholder");
+  showPlaceholderOnError("mediaVideoSim", "mediaVideoSimPlaceholder");
+  showPlaceholderOnError("mediaVideoFisico", "mediaVideoFisicoPlaceholder");
+
+  /* ---------- Reproductor de música flotante ---------- */
+  // Cuando tengas el nombre real de la canción, cámbialo aquí:
+  const SONG_TITLE = "Título de la canción";
+
+  const musicBubble = document.getElementById("musicBubble");
+  const musicPanel = document.getElementById("musicPanel");
+  const musicPlayBtn = document.getElementById("musicPlayBtn");
+  const musicStatus = document.getElementById("musicStatus");
+  const songTitleEl = document.getElementById("songTitle");
+  const bgAudio = document.getElementById("bgAudio");
+
+  if (musicBubble && musicPanel && bgAudio) {
+    songTitleEl.textContent = SONG_TITLE;
+
+    musicBubble.addEventListener("click", () => {
+      musicPanel.classList.toggle("is-open");
+    });
+
+    document.addEventListener("click", (event) => {
+      const clickedInside = musicPanel.contains(event.target) || musicBubble.contains(event.target);
+      if (!clickedInside) musicPanel.classList.remove("is-open");
+    });
+
+    musicPlayBtn.addEventListener("click", () => {
+      if (bgAudio.paused) {
+        bgAudio.play()
+          .then(() => {
+            musicPlayBtn.textContent = "⏸";
+            musicPlayBtn.setAttribute("aria-label", "Pausar");
+            musicStatus.textContent = "Reproduciendo";
+            musicBubble.classList.add("is-playing");
+          })
+          .catch(() => {
+            musicStatus.textContent = "Agrega el archivo en media/cancion.mp3";
+          });
+      } else {
+        bgAudio.pause();
+      }
+    });
+
+    bgAudio.addEventListener("pause", () => {
+      musicPlayBtn.textContent = "▶";
+      musicPlayBtn.setAttribute("aria-label", "Reproducir");
+      musicStatus.textContent = "Pausado";
+      musicBubble.classList.remove("is-playing");
+    });
+
+    bgAudio.addEventListener("error", () => {
+      musicStatus.textContent = "Agrega el archivo en media/cancion.mp3";
     });
   }
 });
