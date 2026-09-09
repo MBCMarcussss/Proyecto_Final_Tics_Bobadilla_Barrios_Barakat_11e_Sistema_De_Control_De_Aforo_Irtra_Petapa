@@ -62,8 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let count = 0;
     let autoInterval = null;
     let audioCtx = null;
-    let flashInTimeout = null;
-    let flashOutTimeout = null;
 
     function beep() {
       try {
@@ -78,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         osc.start();
         osc.stop(audioCtx.currentTime + 0.35);
       } catch (e) {
-        /* Web Audio no disponible: se omite el sonido silenciosamente */
+        /* Web Audio no disponible */
       }
     }
 
@@ -242,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (backToTop) {
     window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("is-visible", window.scrollY > 600);
+      backToTop.classList.toggle("is-visible", window.scrollY > 400);
     });
 
     backToTop.addEventListener("click", () => {
