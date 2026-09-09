@@ -27,10 +27,8 @@
         <a href="#problema" class="navbar__link">Problema</a>
         <a href="#proyecto" class="navbar__link">Arquitectura</a>
         <a href="#componentes" class="navbar__link">Componentes</a>
-        <a href="#funcionamiento" class="navbar__link">Funcionamiento</a>
         <a href="#especificaciones" class="navbar__link">Especificaciones</a>
         <a href="#impacto" class="navbar__link">Impacto ODS</a>
-        <a href="#equipo" class="navbar__link">Equipo</a>
       </nav>
     </div>
   </header>
@@ -53,10 +51,9 @@
             <span class="badge badge--green">ODS 11 · Ciudades y comunidades sostenibles</span>
           </div>
           <div class="hero__actions">
-            <a href="#funcionamiento" class="btn btn--solid">Ver cómo funciona</a>
-            <a href="#proyecto" class="btn btn--ghost">Ver arquitectura</a>
+            <a href="#proyecto" class="btn btn--solid">Ver arquitectura</a>
+            <a href="#especificaciones" class="btn btn--ghost">Especificaciones</a>
           </div>
-          <p class="hero__credit">Desarrollado por el equipo del proyecto — <a href="#equipo">ver equipo ↓</a></p>
         </div>
 
         <div class="hero__widget">
@@ -135,7 +132,7 @@
       </div>
     </section>
 
-    <!-- PROYECTO / ARQUITECTURA -->
+    <!-- ARQUITECTURA -->
     <section id="proyecto" class="section section--dark">
       <div class="section__inner">
         <p class="eyebrow eyebrow--dark">La solución</p>
@@ -246,60 +243,8 @@
       </div>
     </section>
 
-    <!-- FUNCIONAMIENTO -->
-    <section id="funcionamiento" class="section section--alt">
-      <div class="section__inner">
-        <p class="eyebrow">Ciclo operativo</p>
-        <h2>Cinco decisiones tomadas en tiempo real</h2>
-        <p class="section__intro">El sistema evalúa el conteo de forma continua y reacciona de manera autónoma, sin que el personal deba intervenir.</p>
-
-        <ol class="timeline">
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--1">01</span>
-            <div>
-              <h3>Detección</h3>
-              <p>Los sensores ubicados en la entrada y salida detectan el paso de cada visitante.</p>
-              <span class="timeline__tag">Sensores: entrada / salida</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--2">02</span>
-            <div>
-              <h3>Conteo automático</h3>
-              <p>El Arduino suma o resta del total según el sentido del movimiento, sin intervención manual.</p>
-              <span class="timeline__tag">Unidad: Arduino UNO</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--3">03</span>
-            <div>
-              <h3>Comparación con el límite</h3>
-              <p>El sistema compara el conteo actual contra el aforo máximo permitido para la zona.</p>
-              <span class="timeline__tag">Umbral: aforo máximo de la zona</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--4">04</span>
-            <div>
-              <h3>Alerta</h3>
-              <p>Al acercarse o alcanzar el límite, se activan las luces y el sonido para avisar al personal.</p>
-              <span class="timeline__tag">Salida: LED + buzzer</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--5">05</span>
-            <div>
-              <h3>Visualización</h3>
-              <p>El aforo actual se muestra en tiempo real para personal y visitantes.</p>
-              <span class="timeline__tag">Salida: pantalla de aforo</span>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
     <!-- ESPECIFICACIONES -->
-    <section id="especificaciones" class="section">
+    <section id="especificaciones" class="section section--alt">
       <div class="section__inner">
         <p class="eyebrow">Parámetros técnicos</p>
         <h2>Matriz de especificaciones de comportamiento</h2>
@@ -375,10 +320,6 @@
             <p>Componentes principales del circuito</p>
           </div>
           <div class="stat">
-            <span class="stat__number" data-target="5">0</span>
-            <p>Pasos del ciclo de funcionamiento</p>
-          </div>
-          <div class="stat">
             <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
             <p>Conteo digital, sin registro manual</p>
           </div>
@@ -386,38 +327,6 @@
             <span class="stat__number" data-target="1">0</span><span class="stat__suffix">s</span>
             <p>Tiempo de respuesta simulado de la alerta</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EQUIPO -->
-    <section id="equipo" class="section">
-      <div class="section__inner">
-        <p class="eyebrow">Autores del proyecto</p>
-        <h2>Equipo de desarrollo</h2>
-        <p class="section__intro">Las personas detrás del Sistema de Control de Aforo IRTRA Petapa.</p>
-
-        <div class="grid grid--people">
-          <article class="card card--person">
-            <div class="card__avatar card__avatar--blue">A</div>
-            <h3>Nombre Apellido</h3>
-            <p>Desarrollo de hardware</p>
-          </article>
-          <article class="card card--person">
-            <div class="card__avatar card__avatar--cyan">B</div>
-            <h3>Nombre Apellido</h3>
-            <p>Programación del Arduino</p>
-          </article>
-          <article class="card card--person">
-            <div class="card__avatar card__avatar--green">C</div>
-            <h3>Nombre Apellido</h3>
-            <p>Diseño y documentación</p>
-          </article>
-          <article class="card card--person">
-            <div class="card__avatar card__avatar--navy">D</div>
-            <h3>Nombre Apellido</h3>
-            <p>Coordinación del proyecto</p>
-          </article>
         </div>
       </div>
     </section>
@@ -435,10 +344,8 @@
         <a href="#problema">Problema</a>
         <a href="#proyecto">Arquitectura</a>
         <a href="#componentes">Componentes</a>
-        <a href="#funcionamiento">Funcionamiento</a>
         <a href="#especificaciones">Especificaciones</a>
         <a href="#impacto">Impacto</a>
-        <a href="#equipo">Equipo</a>
       </nav>
     </div>
     <div class="footer__bottom">
