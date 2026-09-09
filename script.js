@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ---------- Año dinámico ---------- */
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
   /* ---------- Menú móvil ---------- */
   const toggle = document.getElementById("navToggle");
   const menu = document.getElementById("navMenu");
@@ -54,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnReset = document.getElementById("btnReset");
   const metaIn = document.getElementById("metaIn");
   const metaOut = document.getElementById("metaOut");
+  const metaRgb = document.getElementById("metaRgb");
   const metaAlarm = document.getElementById("metaAlarm");
 
   if (simulator) {
@@ -99,21 +96,28 @@ document.addEventListener("DOMContentLoaded", () => {
       barEl.style.width = `${Math.min(ratio * 100, 100)}%`;
 
       let state = "normal";
-      let status = "Aforo normal";
+      let status = "Aforo disponible (LCD: Disponible)";
+      let rgbText = "Verde / ON";
 
       if (count >= MAX) {
         state = "alert";
-        status = "Aforo máximo alcanzado — alerta activa";
+        status = "¡Aforo máximo alcanzado! (LCD: ZONA LLENA)";
+        rgbText = "Rojo / ON";
       } else if (ratio >= WARNING_RATIO) {
         state = "warning";
-        status = "Aforo alto — acercándose al límite";
+        status = "Aforo cerca del límite (LCD: Precaucion)";
+        rgbText = "Amarillo / ON";
       }
 
       const wasAlert = simulator.dataset.state === "alert";
       simulator.dataset.state = state;
       statusEl.textContent = status;
-      metaAlarm.textContent = state === "alert" ? "Activa" : "Inactiva";
-      metaAlarm.classList.toggle("is-flash", state === "alert");
+      
+      if (metaRgb) metaRgb.textContent = rgbText;
+      if (metaAlarm) {
+        metaAlarm.textContent = state === "alert" ? "¡Pita 1 vez!" : "Inactivo";
+        metaAlarm.classList.toggle("is-flash", state === "alert");
+      }
 
       if (state === "alert" && !wasAlert) beep();
 
@@ -164,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnAuto.classList.add("is-active");
       btnAuto.textContent = "Detener simulación";
       autoInterval = setInterval(() => {
-        const goingIn = Math.random() > 0.32;
+        const goingIn = Math.random() > 0.35;
         if (goingIn) enter(); else exit();
       }, 700);
     }
