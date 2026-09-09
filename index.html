@@ -623,8 +623,8 @@ ul, ol { margin: 0; padding: 0; }
 /* ---------- Back to top ---------- */
 .back-to-top {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: 28px;
+  bottom: 28px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -634,12 +634,13 @@ ul, ol { margin: 0; padding: 0; }
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
+  padding: 0;
   box-shadow: 0 10px 24px -8px rgba(34, 211, 238, 0.5);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-  z-index: 40;
+  z-index: 45;
 }
 
 .back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
@@ -764,31 +765,35 @@ ul, ol { margin: 0; padding: 0; }
 }
 
 /* ---------- Reproductor de música flotante ---------- */
+html { scrollbar-gutter: stable; }
+
 .music-widget {
   position: fixed;
-  right: 20px;
-  bottom: 80px;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
+  right: 28px;
+  bottom: 92px;
+  z-index: 50;
+  width: 48px;
+  height: 48px;
 }
 
 .music-bubble {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--navy-card);
   color: var(--cyan);
   font-size: 1.2rem;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
   box-shadow: 0 12px 26px -10px rgba(2, 6, 20, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.15s ease;
 }
 
@@ -796,6 +801,9 @@ ul, ol { margin: 0; padding: 0; }
 .music-bubble.is-playing { color: var(--navy-deep); background: var(--cyan); }
 
 .music-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
   width: 220px;
   background: var(--navy-card);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -805,11 +813,12 @@ ul, ol { margin: 0; padding: 0; }
   box-shadow: 0 20px 44px -18px rgba(2, 6, 20, 0.7);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: translateY(8px);
   transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
 }
 
-.music-panel.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+.music-panel.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
 
 .music-panel__eyebrow {
   font-family: var(--font-mono);
