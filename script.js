@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Alternar Modo Oscuro / Modo Claro ---------- */
+  const themeBtn = document.getElementById("btnThemeToggle");
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeBtn.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+  }
+
   /* ---------- Menú móvil ---------- */
   const toggle = document.getElementById("navToggle");
   const menu = document.getElementById("navMenu");
@@ -42,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sections.forEach((section) => navObserver.observe(section));
 
-  /* ---------- Simulador de aforo ---------- */
+  /* ---------- Simulador de aforo (Límite 20) ---------- */
   const simulator = document.getElementById("simulator");
   const countEl = document.getElementById("simCount");
   const maxEl = document.getElementById("simMax");
@@ -57,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const metaAlarm = document.getElementById("metaAlarm");
 
   if (simulator) {
-    const MAX = parseInt(maxEl.textContent, 10);
-    const WARNING_RATIO = 0.70;
+    const MAX = 20;
+    maxEl.textContent = MAX;
     let count = 0;
     let autoInterval = null;
     let audioCtx = null;
@@ -104,18 +113,22 @@ document.addEventListener("DOMContentLoaded", () => {
       if (count >= MAX) {
         state = "alert";
         status = "¡Aforo Lleno! — Alerta sonora y luz roja";
-      } else if (ratio >= WARNING_RATIO) {
+      } else if (count >= 9) {
         state = "warning";
         status = "Cerca del límite — Advertencia (Amarillo)";
       }
 
-      const wasAlert = simulator.dataset.state === "alert";
+      const previousState = simulator.dataset.state;
       simulator.dataset.state = state;
       statusEl.textContent = status;
+
       metaAlarm.textContent = state === "alert" ? "¡ALERTA ACTIVA!" : "Inactivo";
       metaAlarm.classList.toggle("is-flash", state === "alert");
 
-      if (state === "alert" && !wasAlert) beep();
+      // El buzzer solo suena al momento exacto en que alcanza el límite de 20
+      if (count === MAX && previousState !== "alert") {
+        beep();
+      }
 
       if (count >= MAX && autoInterval) {
         clearInterval(autoInterval);
@@ -175,40 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
     btnAuto.addEventListener("click", toggleAuto);
 
     render();
-  }
-
-  /* ---------- Contadores animados ---------- */
-  const statNumbers = document.querySelectorAll(".stat__number");
-
-  function animateCount(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const duration = 900;
-    const start = performance.now();
-
-    function step(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target);
-      if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  if (statNumbers.length) {
-    const statObserver = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-
-    statNumbers.forEach((el) => statObserver.observe(el));
   }
 
   /* ---------- Placeholders de la sección Evidencia ---------- */
