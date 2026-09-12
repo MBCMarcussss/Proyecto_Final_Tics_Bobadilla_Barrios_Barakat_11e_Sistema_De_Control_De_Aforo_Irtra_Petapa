@@ -37,13 +37,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { rootMargin: "-45% 0px -45% 0px" }
+    { rootMargin: "-30% 0px -30% 0px" }
   );
 
   sections.forEach((section) => navObserver.observe(section));
 
-  /* ---------- Animaciones Scroll (Reveal) ---------- */
+  /* ---------- Animaciones Scroll (Reveal Corregidas) ---------- */
   const animatedElements = document.querySelectorAll(".animate-on-scroll");
+
+  // Revelar elementos que ya están visibles al cargar la página de inmediato
+  animatedElements.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      el.classList.add("is-visible");
+    }
+  });
 
   const revealObserver = new IntersectionObserver(
     (entries, obs) => {
@@ -54,12 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.05 }
   );
 
   animatedElements.forEach((el) => revealObserver.observe(el));
 
-  /* ---------- Simulador de aforo (Actualizado a límite 20) ---------- */
+  /* ---------- Simulador de aforo (Límite 20) ---------- */
   const simulator = document.getElementById("simulator");
   const countEl = document.getElementById("simCount");
   const maxEl = document.getElementById("simMax");
@@ -214,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mediaEl.addEventListener("error", reveal, true);
 
+    // Detección si los recursos de imagen o vídeo fallan
     setTimeout(() => {
       const isImg = mediaEl.tagName === "IMG";
       const notLoaded = isImg
