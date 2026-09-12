@@ -3,383 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Autónomo de Control de Aforo · IRTRA Petapa</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="recursos/BonadLogo.png">
-  <link rel="stylesheet" href="style.css">
+  <title>Mi Página Web</title>
+  <style>
+    /* Estilos generales */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f9;
+      color: #333;
+      padding: 20px;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Encabezados y texto */
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    /* Botón */
+    .btn {
+      display: inline-block;
+      background-color: #3498db;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+  </style>
 </head>
 <body>
 
-  <header class="navbar">
-    <div class="navbar__inner">
-      <a href="#inicio" class="navbar__brand">
-        <img src="recursos/LOGO_CAPOUILLIEZ - Fondos oscuros-03 (1).png" alt="Logo Colegio" class="navbar__logo">
-        Control de Aforo <span>IRTRA Petapa</span>
-      </a>
-
-      <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="navbar__menu" id="navMenu">
-        <a href="#inicio" class="navbar__link">Inicio</a>
-        <a href="#componentes" class="navbar__link">Componentes y Funcionamiento</a>
-        <a href="#evidencia" class="navbar__link">Evidencia</a>
-        <a href="#impacto" class="navbar__link">Impacto ODS</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- INICIO -->
-    <section id="inicio" class="section section--dark section--hero">
-      <div class="section__inner hero__inner">
-        <div class="hero__copy">
-          <p class="tag-pill">Sistema Autónomo de Control de Aforo · IRTRA Petapa</p>
-          <h1>Seguridad e innovación<br><span class="text-cyan">en zonas de alto tránsito.</span></h1>
-          <p class="lead">
-            Automatizamos el control de aforo en las áreas de espera del parque IRTRA Petapa mediante un sistema electrónico autónomo con Arduino Uno. Prevenimos colapsos y sobrecargas monitoreando en tiempo real sin depender del conteo manual.
-          </p>
-          <div class="hero__badges">
-            <span class="badge badge--cyan">ODS 9 · Industria, innovación e infraestructura</span>
-            <span class="badge badge--green">ODS 11 · Ciudades y comunidades sostenibles</span>
-          </div>
-          <div class="hero__actions">
-            <a href="#componentes" class="btn btn--solid">Ver componentes</a>
-            <a href="#evidencia" class="btn btn--ghost">Ver evidencia</a>
-          </div>
-        </div>
-
-        <div class="hero__widget">
-          <div class="simulator" id="simulator" data-state="normal">
-            <div class="simulator__header">
-              <span class="simulator__title">Simulación de aforo — Plataforma de espera</span>
-              <span class="simulator__light" id="simLight" aria-hidden="true"></span>
-            </div>
-
-            <div class="simulator__count">
-              <span class="simulator__number" id="simCount">0</span>
-              <span class="simulator__slash">/</span>
-              <span class="simulator__max" id="simMax">20</span>
-            </div>
-
-            <div class="simulator__bar">
-              <div class="simulator__bar-fill" id="simBar"></div>
-            </div>
-
-            <p class="simulator__status" id="simStatus">Aforo disponible (Verde)</p>
-
-            <div class="simulator__controls">
-              <button class="sim-btn sim-btn--in" id="btnIn" type="button">+ Ingreso (PIR)</button>
-              <button class="sim-btn sim-btn--out" id="btnOut" type="button">− Salida (Boton)</button>
-              <button class="sim-btn sim-btn--auto" id="btnAuto" type="button">Simulación automática</button>
-              <button class="sim-btn sim-btn--reset" id="btnReset" type="button">Reiniciar</button>
-            </div>
-
-            <div class="simulator__meta">
-              <div class="meta-row">
-                <span>Sensor PIR (Entrada)</span>
-                <span class="meta-row__value" id="metaIn">En espera</span>
-              </div>
-              <div class="meta-row">
-                <span>Push Button (Salida)</span>
-                <span class="meta-row__value" id="metaOut">En espera</span>
-              </div>
-              <div class="meta-row">
-                <span>Buzzer (Alerta sonora)</span>
-                <span class="meta-row__value" id="metaAlarm">Inactivo</span>
-              </div>
-            </div>
-
-            <p class="simulator__note">Simulación interactiva basada en la lógica C++ programada para Arduino Uno en Tinkercad.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENTES Y FUNCIONAMIENTO -->
-    <section id="componentes" class="section">
-      <div class="section__inner">
-        <p class="eyebrow">Hardware y Estructura del Proyecto</p>
-        <h2>Componentes del Sistema</h2>
-        <p class="section__intro">Selección de elementos electrónicos que integran el circuito y sus roles en la automatización del aforo.</p>
-
-        <div class="grid grid--components">
-          <article class="component-card">
-            <span class="component-card__tag">Cerebro</span>
-            <span class="component-card__icon">🤖</span>
-            <h3>Arduino Uno R3</h3>
-            <p>Microcontrolador principal encargado de procesar la lógica de programación, recibir datos de los sensores y activar los actuadores.</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">🚶‍♂️</span>
-            <h3>Sensor PIR</h3>
-            <p>Detecta automáticamente cada persona que ingresa a la zona de espera, incrementando el contador del sistema (+1).</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">🔘</span>
-            <h3>Push Button</h3>
-            <p>Utilizado por el operador para registrar la salida de visitantes del área de espera, decrementando el contador (-1).</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">📺</span>
-            <h3>Pantalla LCD 16*2</h3>
-            <p>Muestra continuamente el conteo en tiempo real, el límite máximo permitido y el estado del área (Disponible / Cerca del límite / Llena).</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">🚦</span>
-            <h3>LED RGB</h3>
-            <p>Indicador visual tricolor de ocupación: <strong>Verde</strong> (espacio disponible), <strong>Amarillo</strong> (cerca del límite) y <strong>Rojo</strong> (aforo lleno).</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">🔊</span>
-            <h3>Buzzer</h3>
-            <p>Emite una alerta sonora instantánea cuando el aforo alcanza su capacidad máxima, notificando inmediatamente al personal.</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">💡</span>
-            <h3>LED Indicador</h3>
-            <p>LED simple que confirma que el sistema está energizado y operando de manera correcta en todo momento.</p>
-          </article>
-
-          <article class="component-card">
-            <span class="component-card__icon">⚡</span>
-            <h3>Protoboard, Resistencias y Jumpers</h3>
-            <p>Infraestructura de montaje para la interconexión eléctrica, protección contra sobrecorriente y distribución de señales.</p>
-          </article>
-        </div>
-
-        <!-- FUNCIONAMIENTO INTEGRADO -->
-        <div style="margin-top: 64px;">
-          <p class="eyebrow">Ciclo de Operación</p>
-          <h2>Lógica de Control en Tiempo Real</h2>
-          <p class="section__intro">Secuencia lógica automatizada para la gestión segura del flujo de personas.</p>
-
-          <ol class="timeline">
-            <li class="timeline__step">
-              <span class="timeline__index timeline__index--1">01</span>
-              <div>
-                <h3>Registro de Ingreso</h3>
-                <p>El sensor PIR detecta movimiento en el acceso y envía una señal al Arduino para sumar 1 unidad al contador global de aforo.</p>
-                <span class="timeline__tag">Entrada: Sensor PIR</span>
-              </div>
-            </li>
-            <li class="timeline__step">
-              <span class="timeline__index timeline__index--2">02</span>
-              <div>
-                <h3>Registro de Salida</h3>
-                <p>El operador presiona el Push Button cuando los visitantes abordan la atracción o salen de la zona, restando las unidades correspondientes.</p>
-                <span class="timeline__tag">Salida: Push Button</span>
-              </div>
-            </li>
-            <li class="timeline__step">
-              <span class="timeline__index timeline__index--3">03</span>
-              <div>
-                <h3>Evaluación de Umbrales</h3>
-                <p>El programa compara el contador actual contra los límites: aforo bajo (0-8), medio (9-16) o aforo máximo (17-20).</p>
-                <span class="timeline__tag">Procesamiento: Arduino C++</span>
-              </div>
-            </li>
-            <li class="timeline__step">
-              <span class="timeline__index timeline__index--4">04</span>
-              <div>
-                <h3>Visualización e Interfaz</h3>
-                <p>La Pantalla LCD 16x2 y el LED RGB actualizan su estado al instante para informar tanto al personal como a los visitantes.</p>
-                <span class="timeline__tag">Salida: LCD 16*2 + LED RGB</span>
-              </div>
-            </li>
-            <li class="timeline__step">
-              <span class="timeline__index timeline__index--5">05</span>
-              <div>
-                <h3>Alerta de Seguridad</h3>
-                <p>Al llegar a 20 (máximo aforo), el buzzer suena como aviso de detención de paso, previniendo colapsos de plataforma.</p>
-                <span class="timeline__tag">Alerta: Buzzer + Luz Roja</span>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- EVIDENCIA -->
-    <section id="evidencia" class="section section--alt">
-      <div class="section__inner">
-        <p class="eyebrow">Entregables y Demostración</p>
-        <h2>Evidencia del Proyecto</h2>
-        <p class="section__intro">Pruebas del funcionamiento del circuito simulado, montaje físico, podcast explicativo e investigación formal.</p>
-
-        <div class="grid grid--media">
-
-          <!-- SIMULACION TINKERCAD -->
-          <article class="media-card">
-            <div class="media-frame">
-              <img
-                class="media-asset"
-                id="mediaImgSim"
-                src="recursos/circuitosimulado.png"
-                alt="Captura de la simulación del circuito en Tinkercad">
-              <div class="media-placeholder" id="mediaImgSimPlaceholder" hidden>
-                <span class="media-placeholder__icon">🖼️</span>
-                <p>Agrega la captura del circuito en recursos/circuitosimulado.png</p>
-              </div>
-            </div>
-            <div class="media-card__body">
-              <span class="media-card__tag">Simulación</span>
-              <h3>Circuito en Tinkercad</h3>
-              <p>Diagrama del montaje simulado con Arduino, sensores y pantallas.</p>
-            </div>
-          </article>
-
-          <!-- VIDEO SIMULADO -->
-          <article class="media-card">
-            <div class="media-frame">
-              <video
-                class="media-asset"
-                id="mediaVideoSim"
-                controls
-                preload="metadata">
-                <source src="recursos/vidsimulado.mp4" type="video/mp4">
-              </video>
-              <div class="media-placeholder" id="mediaVideoSimPlaceholder" hidden>
-                <span class="media-placeholder__icon">▶</span>
-                <p>Agrega el video simulado en recursos/vidsimulado.mp4</p>
-              </div>
-            </div>
-            <div class="media-card__body">
-              <span class="media-card__tag">Demostración Simulación</span>
-              <h3>Prueba en Tinkercad</h3>
-              <p>Video del funcionamiento lógico del código, incrementos, decrementos y alertas.</p>
-            </div>
-          </article>
-
-          <!-- VIDEO FISICO -->
-          <article class="media-card">
-            <div class="media-frame">
-              <video
-                class="media-asset"
-                id="mediaVideoFisico"
-                controls
-                preload="metadata">
-                <source src="recursos/vidfisico.mp4" type="video/mp4">
-              </video>
-              <div class="media-placeholder" id="mediaVideoFisicoPlaceholder" hidden>
-                <span class="media-placeholder__icon">▶</span>
-                <p>Agrega el video físico en recursos/vidfisico.mp4</p>
-              </div>
-            </div>
-            <div class="media-card__body">
-              <span class="media-card__tag">Montaje Físico</span>
-              <h3>Circuito en la Vida Real</h3>
-              <p>Demostración del prototipo electrónico operando en hardware real.</p>
-            </div>
-          </article>
-
-          <!-- PODCAST AUDIO -->
-          <article class="media-card">
-            <div class="audio-player-container">
-              <span style="font-size: 2.5rem;">🎙️</span>
-              <audio controls preload="none">
-                <source src="recursos/podcast.mp3" type="audio/mpeg">
-                Tu navegador no soporta el elemento de audio.
-              </audio>
-            </div>
-            <div class="media-card__body">
-              <span class="media-card__tag">Audio / Podcast</span>
-              <h3>Podcast Informativo del Proyecto</h3>
-              <p>Audio explicativo con una duración máxima de 5 minutos sobre la problemática e innovación planteada.</p>
-            </div>
-          </article>
-
-        </div>
-
-        <!-- DOCUMENTO DESPLEGABLE (WORD / PDF) -->
-        <details class="doc-accordion">
-          <summary class="doc-accordion__summary">
-            📄 Ver Documento de Investigación Formal (Word / PDF)
-          </summary>
-          <div class="doc-accordion__content">
-            <div class="doc-download-bar">
-              <p style="margin: 0;"><strong>Documento Técnico de Investigación</strong> — Proyecto IRTRA Petapa</p>
-              <a href="recursos/Investigacion_IRTRA_Petapa.docx" class="btn btn--solid" download style="padding: 8px 16px; font-size: 0.85rem;">
-                📥 Descargar Archivo Word (.docx)
-              </a>
-            </div>
-            <div class="doc-frame-wrapper">
-              <iframe src="recursos/Investigacion_IRTRA_Petapa.pdf" title="Previsualización del Documento de Investigación">
-                <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/Investigacion_IRTRA_Petapa.docx">descargar el documento Word aquí</a>.</p>
-              </iframe>
-            </div>
-          </div>
-        </details>
-
-      </div>
-    </section>
-
-    <!-- IMPACTO / ODS -->
-    <section id="impacto" class="section section--dark">
-      <div class="section__inner">
-        <p class="eyebrow eyebrow--dark">Alcance Social y Sostenible</p>
-        <h2 class="text-white">Alineación con los ODS</h2>
-        <p class="section__intro text-muted">Aporte directo de la solución tecnológica a los Objetivos de Desarrollo Sostenible de la Agenda 2030.</p>
-
-        <div class="grid grid--ods">
-          <article class="ods-card">
-            <span class="ods-card__number ods-card__number--cyan">9</span>
-            <div>
-              <h3>Industria, Innovación e Infraestructura</h3>
-              <p>Moderniza la infraestructura del parque mediante tecnología accesible de bajo costo, automatizando un monitoreo crítico de seguridad antes realizado de forma puramente manual.</p>
-            </div>
-          </article>
-
-          <article class="ods-card">
-            <span class="ods-card__number ods-card__number--green">11</span>
-            <div>
-              <h3>Ciudades y Comunidades Sostenibles</h3>
-              <p>Promueve espacios públicos y recreativos seguros, previniendo accidentes por colapso de estructuras o aglomeraciones en zonas de alto tránsito de visitantes.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- CONTROLES FLOTANTES DERECHOS -->
-  <div class="floating-controls">
-    <button class="btn-floating btn-theme" id="btnThemeToggle" aria-label="Cambiar tema">🌙</button>
-    <a href="#inicio" class="btn-floating btn-scroll" id="btnScrollTop" aria-label="Subir">↑</a>
+  <div class="container">
+    <h1>¡Hola, mundo!</h1>
+    <p>Esta es una estructura básica con HTML y CSS integrados en la etiqueta <code>&lt;style&gt;</code>.</p>
+    <a href="#" class="btn">Unirse</a>
   </div>
 
-  <!-- BOTÓN BURBUJA ESTILO CONSULTA/AYUDA -->
-  <div class="bubble-widget">
-    <span class="bubble-widget__text">¿Tienes alguna duda o pregunta?</span>
-    <a href="#evidencia" class="bubble-widget__btn">
-      Ver evidencia
-      <span class="bubble-widget__arrow">➔</span>
-    </a>
-  </div>
-
-  <footer class="footer">
-    <div class="footer__inner">
-      <div>
-        <p class="footer__brand">Sistema Autónomo de Control de Aforo IRTRA Petapa</p>
-        <p class="footer__sub">Proyecto de tecnología simulado en Tinkercad e implementado en físico.</p>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa - MBCMarcussss</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
