@@ -42,7 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sections.forEach((section) => navObserver.observe(section));
 
-  /* ---------- Simulador de aforo ---------- */
+  /* ---------- Animaciones Scroll (Reveal) ---------- */
+  const animatedElements = document.querySelectorAll(".animate-on-scroll");
+
+  const revealObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  animatedElements.forEach((el) => revealObserver.observe(el));
+
+  /* ---------- Simulador de aforo (Actualizado a límite 20) ---------- */
   const simulator = document.getElementById("simulator");
   const countEl = document.getElementById("simCount");
   const maxEl = document.getElementById("simMax");
@@ -90,6 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 550);
     }
 
+    function triggerBump() {
+      countEl.classList.add("bump");
+      setTimeout(() => countEl.classList.remove("bump"), 150);
+    }
+
     const inFlashRef = { id: null };
     const outFlashRef = { id: null };
 
@@ -129,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (count < MAX) {
         count += 1;
         flashMeta(metaIn, inFlashRef);
+        triggerBump();
       }
       render();
     }
@@ -137,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (count > 0) {
         count -= 1;
         flashMeta(metaOut, outFlashRef);
+        triggerBump();
       }
       render();
     }
@@ -175,40 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
     btnAuto.addEventListener("click", toggleAuto);
 
     render();
-  }
-
-  /* ---------- Contadores animados ---------- */
-  const statNumbers = document.querySelectorAll(".stat__number");
-
-  function animateCount(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const duration = 900;
-    const start = performance.now();
-
-    function step(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target);
-      if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  if (statNumbers.length) {
-    const statObserver = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-
-    statNumbers.forEach((el) => statObserver.observe(el));
   }
 
   /* ---------- Placeholders de la sección Evidencia ---------- */
