@@ -107,7 +107,7 @@ ul, ol { margin: 0; padding: 0; }
 .navbar__brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.98rem;
@@ -115,20 +115,13 @@ ul, ol { margin: 0; padding: 0; }
   white-space: nowrap;
 }
 
-.navbar__brand span { color: var(--cyan); }
-
-.navbar__mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: var(--blue);
-  color: #fff;
-  font-size: 0.7rem;
-  font-family: var(--font-mono);
+.navbar__logo {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
 }
+
+.navbar__brand span { color: var(--cyan); }
 
 .navbar__menu {
   display: flex;
@@ -250,9 +243,6 @@ ul, ol { margin: 0; padding: 0; }
 
 .btn--ghost:hover { border-color: var(--cyan); background: rgba(34, 211, 238, 0.08); }
 
-.hero__credit { font-size: 0.82rem; color: #7b88a8; margin: 0; }
-.hero__credit a { color: var(--cyan); font-weight: 600; }
-
 /* ---------- Simulator widget ---------- */
 .simulator {
   background: var(--navy-card);
@@ -334,116 +324,6 @@ ul, ol { margin: 0; padding: 0; }
 
 .simulator__note { font-size: 0.72rem; color: #63709a; margin: 0; }
 
-/* ---------- Problema ---------- */
-.split {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
-  margin-top: 28px;
-  align-items: start;
-}
-
-.split__text { font-size: 1.02rem; }
-
-.stat-cards { display: flex; flex-direction: column; gap: 16px; }
-
-.stat-card {
-  position: relative;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--blue);
-  border-radius: var(--radius);
-  padding: 22px 22px 18px;
-}
-
-.stat-card .stat__number, .stat-card .stat__suffix {
-  font-family: var(--font-mono);
-  font-size: 2.1rem;
-  font-weight: 600;
-  color: var(--navy-deep);
-}
-
-.stat-card p { margin: 8px 0 0; font-size: 0.86rem; }
-
-.stat-card__tag {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-
-.stat-card__tag--red { color: var(--red); background: #fdeceb; }
-.stat-card__tag--cyan { color: var(--cyan-dark); background: #e2fbff; }
-
-/* ---------- Tags ---------- */
-.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
-
-.tag {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--navy-deep);
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-}
-
-/* ---------- Diagrama de arquitectura ---------- */
-.diagram {
-  position: relative;
-  max-width: 640px;
-  margin: 40px auto 0;
-  aspect-ratio: 640 / 420;
-}
-
-.diagram__lines { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-.diagram__line {
-  stroke: var(--cyan);
-  stroke-width: 1.5;
-  stroke-dasharray: 6 6;
-  opacity: 0.55;
-  animation: dash-flow 3s linear infinite;
-}
-
-@keyframes dash-flow { to { stroke-dashoffset: -60; } }
-
-.diagram__node {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 168px;
-  background: var(--navy-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  text-align: left;
-}
-
-.diagram__node strong { display: block; color: #fff; font-size: 0.86rem; margin-bottom: 3px; }
-.diagram__node p { margin: 0; font-size: 0.74rem; color: #93a1c4; }
-
-.diagram__label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--cyan);
-  margin-bottom: 4px;
-}
-
-.diagram__node--center {
-  width: 180px;
-  background: var(--blue);
-  border-color: var(--blue);
-  z-index: 2;
-}
-
-.diagram__node--center strong,
-.diagram__node--center p { color: #fff; }
-.diagram__label--center { color: #dbe6ff; }
-
 /* ---------- Componentes ---------- */
 .grid { display: grid; gap: 20px; margin-top: 32px; }
 .grid--components { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
@@ -484,8 +364,8 @@ ul, ol { margin: 0; padding: 0; }
 .component-card__icon svg { width: 22px; height: 22px; fill: none; stroke: var(--blue-dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .component-card p { font-size: 0.92rem; margin-bottom: 0; }
 
-/* ---------- Timeline ---------- */
-.timeline { list-style: none; margin-top: 36px; display: flex; flex-direction: column; }
+/* ---------- Timeline (Funcionamiento Reubicado) ---------- */
+.timeline { list-style: none; margin-top: 48px; display: flex; flex-direction: column; }
 
 .timeline__step {
   display: grid;
@@ -619,40 +499,10 @@ ul, ol { margin: 0; padding: 0; }
 }
 
 .footer__bottom p { margin: 0; color: #63709a; font-size: 0.8rem; }
-.footer__top { font-size: 0.8rem; color: var(--cyan); font-weight: 600; }
-.footer__top:hover { text-decoration: underline; }
-
-/* ---------- Back to top ---------- */
-.back-to-top {
-  position: fixed;
-  right: 28px;
-  bottom: 28px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: none;
-  background: var(--cyan);
-  color: var(--navy-deep);
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 0;
-  box-shadow: 0 10px 24px -8px rgba(34, 211, 238, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-  z-index: 45;
-}
-
-.back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .hero__inner { grid-template-columns: 1fr; }
-  .split { grid-template-columns: 1fr; }
-  .diagram__node { width: 130px; padding: 10px; }
-  .diagram__node--center { width: 140px; }
 }
 
 @media (max-width: 760px) {
@@ -673,17 +523,11 @@ ul, ol { margin: 0; padding: 0; }
 
   .navbar__menu.is-open { display: flex; }
   .navbar__link { width: 100%; }
-
-  .diagram { aspect-ratio: auto; height: auto; }
-  .diagram__lines { display: none; }
-  .diagram__node { position: static; transform: none; width: 100%; margin-bottom: 12px; }
-  .diagram__node--center { order: -1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .simulator[data-state="alert"] .simulator__light { animation: none; }
-  .diagram__line { animation: none; }
 }
 
 /* ---------- Evidencia / Demostración ---------- */
@@ -772,7 +616,7 @@ html { scrollbar-gutter: stable; }
 .music-widget {
   position: fixed;
   right: 28px;
-  bottom: 92px;
+  bottom: 28px;
   z-index: 50;
   width: 48px;
   height: 48px;
@@ -865,7 +709,6 @@ html { scrollbar-gutter: stable; }
   color: #97a5c4;
   margin: 0;
 }
-
   </style>
 </head>
 <body>
@@ -873,7 +716,7 @@ html { scrollbar-gutter: stable; }
   <header class="navbar">
     <div class="navbar__inner">
       <a href="#inicio" class="navbar__brand">
-        <span class="navbar__mark">CA</span>
+        <img src="recursos/logocolegio.png" alt="Logo Colegio" class="navbar__logo">
         Control de Aforo <span>IRTRA</span>
       </a>
 
@@ -883,10 +726,7 @@ html { scrollbar-gutter: stable; }
 
       <nav class="navbar__menu" id="navMenu">
         <a href="#inicio" class="navbar__link">Inicio</a>
-        <a href="#problema" class="navbar__link">Problema</a>
-        <a href="#proyecto" class="navbar__link">Arquitectura</a>
-        <a href="#componentes" class="navbar__link">Componentes</a>
-        <a href="#funcionamiento" class="navbar__link">Funcionamiento</a>
+        <a href="#componentes" class="navbar__link">Componentes y Funcionamiento</a>
         <a href="#evidencia" class="navbar__link">Evidencia</a>
         <a href="#impacto" class="navbar__link">Impacto ODS</a>
       </nav>
@@ -911,7 +751,7 @@ html { scrollbar-gutter: stable; }
             <span class="badge badge--green">ODS 11 · Ciudades y comunidades sostenibles</span>
           </div>
           <div class="hero__actions">
-            <a href="#funcionamiento" class="btn btn--solid">Ver cómo funciona</a>
+            <a href="#componentes" class="btn btn--solid">Ver componentes</a>
             <a href="#evidencia" class="btn btn--ghost">Ver evidencia</a>
           </div>
         </div>
@@ -963,100 +803,12 @@ html { scrollbar-gutter: stable; }
       </div>
     </section>
 
-    <!-- PROBLEMA -->
-    <section id="problema" class="section">
-      <div class="section__inner">
-        <p class="eyebrow">Diagnóstico</p>
-        <h2>El conteo manual no distingue una fila llena de una vacía</h2>
-
-        <div class="split">
-          <p class="split__text">
-            En las zonas de espera de las atracciones de IRTRA, el conteo de visitantes se realiza
-            manualmente. Esto genera riesgo de sobrecupo, dificulta llevar un control preciso del
-            aforo y puede comprometer la seguridad de los visitantes en los momentos de mayor demanda.
-          </p>
-
-          <div class="stat-cards">
-            <div class="stat-card">
-              <span class="stat-card__tag stat-card__tag--red">Hoy</span>
-              <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
-              <p>Del conteo depende de que una persona esté observando la fila en todo momento.</p>
-            </div>
-            <div class="stat-card">
-              <span class="stat-card__tag stat-card__tag--cyan">Hoy</span>
-              <span class="stat__number" data-target="0">0</span>
-              <p>Alertas automáticas existentes cuando la zona se acerca a su límite.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROYECTO / ARQUITECTURA -->
-    <section id="proyecto" class="section section--dark">
-      <div class="section__inner">
-        <p class="eyebrow eyebrow--dark">La solución</p>
-        <h2 class="text-white">Sensores de entrada, una unidad de control, dos formas de avisar</h2>
-        <p class="section__intro text-muted">
-          Dos sensores leen el paso de visitantes de forma continua; la unidad de control procesa
-          el conteo y decide cuándo activar la respuesta sobre la zona de espera.
-        </p>
-
-        <div class="diagram" id="diagram">
-          <svg class="diagram__lines" viewBox="0 0 640 420" preserveAspectRatio="none" aria-hidden="true">
-            <line class="diagram__line" x1="320" y1="210" x2="140" y2="70"></line>
-            <line class="diagram__line" x1="320" y1="210" x2="500" y2="70"></line>
-            <line class="diagram__line" x1="320" y1="210" x2="140" y2="350"></line>
-            <line class="diagram__line" x1="320" y1="210" x2="500" y2="350"></line>
-          </svg>
-
-          <div class="diagram__node" style="left:21.9%; top:16.7%;">
-            <span class="diagram__label">Entrada</span>
-            <strong>Sensor de ingreso</strong>
-            <p>Detecta cada visitante que entra a la zona.</p>
-          </div>
-
-          <div class="diagram__node" style="left:78.1%; top:16.7%;">
-            <span class="diagram__label">Salida</span>
-            <strong>Sensor de egreso</strong>
-            <p>Detecta cada visitante que sale de la zona.</p>
-          </div>
-
-          <div class="diagram__node diagram__node--center" style="left:50%; top:50%;">
-            <span class="diagram__label diagram__label--center">Núcleo</span>
-            <strong>Unidad de control</strong>
-            <p>Procesa el conteo y compara contra el límite.</p>
-          </div>
-
-          <div class="diagram__node" style="left:21.9%; top:83.3%;">
-            <span class="diagram__label">Salida 1</span>
-            <strong>LED + buzzer</strong>
-            <p>Alerta visual y sonora al llegar al límite.</p>
-          </div>
-
-          <div class="diagram__node" style="left:78.1%; top:83.3%;">
-            <span class="diagram__label">Salida 2</span>
-            <strong>Pantalla de aforo</strong>
-            <p>Muestra el conteo actual en tiempo real.</p>
-          </div>
-        </div>
-
-        <div class="tags">
-          <span class="tag">Arduino UNO</span>
-          <span class="tag">Sensores de conteo</span>
-          <span class="tag">Indicador luminoso</span>
-          <span class="tag">Alarma sonora</span>
-          <span class="tag">Monitoreo en tiempo real</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENTES -->
+    <!-- COMPONENTES Y FUNCIONAMIENTO -->
     <section id="componentes" class="section">
       <div class="section__inner">
-        <p class="eyebrow">Hardware</p>
+        <p class="eyebrow">Hardware y Dinámica Operativa</p>
         <h2>Cinco componentes, una respuesta coordinada</h2>
-        <p class="section__intro">Elementos seleccionados por su facilidad de simulación y su rol dentro del circuito.</p>
+        <p class="section__intro">Elementos seleccionados por su facilidad de simulación y su rol dentro del circuito automatizado.</p>
 
         <div class="grid grid--components">
           <article class="component-card component-card--core">
@@ -1100,63 +852,61 @@ html { scrollbar-gutter: stable; }
             <p>Muestra el conteo actual frente a la zona de espera, visible para personal y visitantes.</p>
           </article>
         </div>
-      </div>
-    </section>
 
-    <!-- FUNCIONAMIENTO -->
-    <section id="funcionamiento" class="section section--alt">
-      <div class="section__inner">
-        <p class="eyebrow">Ciclo operativo</p>
-        <h2>Cinco decisiones tomadas en tiempo real</h2>
-        <p class="section__intro">El sistema evalúa el conteo de forma continua y reacciona de manera autónoma, sin que el personal deba intervenir.</p>
+        <!-- FUNCIONAMIENTO INTEGRADO -->
+        <div style="margin-top: 64px;">
+          <p class="eyebrow">Ciclo operativo</p>
+          <h2>Cinco decisiones tomadas en tiempo real</h2>
+          <p class="section__intro">El sistema evalúa el conteo de forma continua y reacciona de manera autónoma, sin que el personal deba intervenir.</p>
 
-        <ol class="timeline">
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--1">01</span>
-            <div>
-              <h3>Detección</h3>
-              <p>Los sensores ubicados en la entrada y salida detectan el paso de cada visitante.</p>
-              <span class="timeline__tag">Sensores: entrada / salida</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--2">02</span>
-            <div>
-              <h3>Conteo automático</h3>
-              <p>El Arduino suma o resta del total según el sentido del movimiento, sin intervención manual.</p>
-              <span class="timeline__tag">Unidad: Arduino UNO</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--3">03</span>
-            <div>
-              <h3>Comparación con el límite</h3>
-              <p>El sistema compara el conteo actual contra el aforo máximo permitido para la zona.</p>
-              <span class="timeline__tag">Umbral: aforo máximo de la zona</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--4">04</span>
-            <div>
-              <h3>Alerta</h3>
-              <p>Al acercarse o alcanzar el límite, se activan las luces y el sonido para avisar al personal.</p>
-              <span class="timeline__tag">Salida: LED + buzzer</span>
-            </div>
-          </li>
-          <li class="timeline__step">
-            <span class="timeline__index timeline__index--5">05</span>
-            <div>
-              <h3>Visualización</h3>
-              <p>El aforo actual se muestra en tiempo real para personal y visitantes.</p>
-              <span class="timeline__tag">Salida: pantalla de aforo</span>
-            </div>
-          </li>
-        </ol>
+          <ol class="timeline">
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--1">01</span>
+              <div>
+                <h3>Detección</h3>
+                <p>Los sensores ubicados en la entrada y salida detectan el paso de cada visitante.</p>
+                <span class="timeline__tag">Sensores: entrada / salida</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--2">02</span>
+              <div>
+                <h3>Conteo automático</h3>
+                <p>El Arduino suma o restar del total según el sentido del movimiento, sin intervención manual.</p>
+                <span class="timeline__tag">Unidad: Arduino UNO</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--3">03</span>
+              <div>
+                <h3>Comparación con el límite</h3>
+                <p>El sistema compara el conteo actual contra el aforo máximo permitido para la zona.</p>
+                <span class="timeline__tag">Umbral: aforo máximo de la zona</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--4">04</span>
+              <div>
+                <h3>Alerta</h3>
+                <p>Al acercarse o alcanzar el límite, se activan las luces y el sonido para avisar al personal.</p>
+                <span class="timeline__tag">Salida: LED + buzzer</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--5">05</span>
+              <div>
+                <h3>Visualización</h3>
+                <p>El aforo actual se muestra en tiempo real para personal y visitantes.</p>
+                <span class="timeline__tag">Salida: pantalla de aforo</span>
+              </div>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
     <!-- EVIDENCIA -->
-    <section id="evidencia" class="section">
+    <section id="evidencia" class="section section--alt">
       <div class="section__inner">
         <p class="eyebrow">Demostración</p>
         <h2>Evidencia del proyecto</h2>
@@ -1285,21 +1035,17 @@ html { scrollbar-gutter: stable; }
       </div>
       <nav class="footer__links">
         <a href="#inicio">Inicio</a>
-        <a href="#problema">Problema</a>
-        <a href="#proyecto">Arquitectura</a>
         <a href="#componentes">Componentes</a>
-        <a href="#funcionamiento">Funcionamiento</a>
         <a href="#evidencia">Evidencia</a>
         <a href="#impacto">Impacto</a>
       </nav>
     </div>
     <div class="footer__bottom">
       <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa.</p>
-      <a href="#inicio" class="footer__top">Volver arriba ↑</a>
     </div>
   </footer>
 
-  <!-- Reproductor de musica flotante -->
+  <!-- Reproductor de música flotante -->
   <div class="music-widget">
     <div class="music-panel" id="musicPanel">
       <p class="music-panel__eyebrow">Reproduciendo</p>
@@ -1314,8 +1060,6 @@ html { scrollbar-gutter: stable; }
       <source src="recursos/Musicafondo.mp3" type="audio/mpeg">
     </audio>
   </div>
-
-  <button class="back-to-top" id="backToTop" type="button" aria-label="Volver arriba">↑</button>
 
   <script src="script.js"></script>
 </body>
