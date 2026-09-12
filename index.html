@@ -3,67 +3,1076 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Página Web</title>
+  <title>Sistema Autónomo de Control de Aforo · IRTRA Petapa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="recursos/BonadLogo.png">
+
   <style>
-    /* Estilos generales */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+:root {
+  --navy-deep: #0a1024;
+  --navy: #101a37;
+  --navy-card: #16213f;
+  --blue: #2f6fed;
+  --blue-dark: #1a4fc4;
+  --blue-tint: #eaf1ff;
+  --cyan: #22d3ee;
+  --cyan-dark: #0e93a8;
+  --green-dark: #0b3d2e;
+  --green-mid: #14603f;
+  --amber: #ffb800;
+  --red: #e5484d;
+  --ink: #0e1420;
+  --gray: #566078;
+  --gray-light: #8993a8;
+  --paper: #ffffff;
+  --border: #e3e8f2;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+}
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      line-height: 1.6;
-      background-color: #f4f4f9;
-      color: #333;
-      padding: 20px;
-    }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-    /* Contenedor principal */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
 
-    /* Encabezados y texto */
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
+a { color: inherit; text-decoration: none; }
 
-    p {
-      margin-bottom: 15px;
-    }
+h1, h2, h3 {
+  font-family: var(--font-display);
+  margin: 0 0 0.5em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--navy-deep);
+}
 
-    /* Botón */
-    .btn {
-      display: inline-block;
-      background-color: #3498db;
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
+h1 { font-size: clamp(2rem, 3.4vw, 2.8rem); line-height: 1.18; }
+h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
+h3 { font-size: 1.1rem; margin-bottom: 0.4em; }
 
-    .btn:hover {
-      background-color: #2980b9;
-    }
+p { margin: 0 0 1em; color: var(--gray); }
+ul, ol { margin: 0; padding: 0; }
+
+.text-white { color: #fff; }
+.text-muted { color: #a9b5cf; }
+.text-cyan { color: var(--cyan); }
+
+.section__inner, .navbar__inner, .footer__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--blue-dark);
+  margin: 0 0 10px;
+  font-weight: 500;
+}
+
+.eyebrow--dark { color: var(--cyan); }
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(10, 16, 36, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  gap: 16px;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.navbar__logo {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar__brand span { color: var(--cyan); }
+
+.navbar__menu {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.navbar__link {
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.82rem;
+  color: #c4cee6;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.navbar__link:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+
+.navbar__link.is-active {
+  background: var(--cyan);
+  color: var(--navy-deep);
+}
+
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.navbar__toggle span {
+  display: block;
+  height: 2px;
+  margin: 0 8px;
+  background: #fff;
+}
+
+/* ---------- Sections ---------- */
+.section { padding: 88px 0; }
+.section--alt { background: var(--blue-tint); }
+
+.section--dark {
+  background: var(--navy-deep);
+  background-image: radial-gradient(circle at 15% 0%, rgba(47, 111, 237, 0.16), transparent 45%);
+}
+
+.section__intro { max-width: 56ch; }
+
+/* ---------- Hero ---------- */
+.section--hero { padding-top: 64px; padding-bottom: 88px; }
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.tag-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--cyan);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.hero__copy h1 { color: #fff; }
+.hero__copy .lead { max-width: 48ch; font-size: 1.05rem; color: #a9b5cf; }
+
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.badge {
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid;
+}
+
+.badge--cyan { color: var(--cyan); border-color: rgba(34, 211, 238, 0.35); background: rgba(34, 211, 238, 0.08); }
+.badge--green { color: #4fd39a; border-color: rgba(20, 96, 63, 0.6); background: rgba(20, 96, 63, 0.25); }
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+}
+
+.btn--solid { background: var(--blue); color: #fff; transition: background 0.15s ease; }
+.btn--solid:hover { background: var(--blue-dark); }
+
+.btn--ghost {
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn--ghost:hover { border-color: var(--cyan); background: rgba(34, 211, 238, 0.08); }
+
+/* ---------- Simulator widget ---------- */
+.simulator {
+  background: var(--navy-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 26px;
+  color: #fff;
+  box-shadow: 0 30px 60px -24px rgba(2, 6, 20, 0.7);
+}
+
+.simulator__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.simulator__title { font-size: 0.78rem; color: #97a5c4; font-weight: 500; }
+
+.simulator__light {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.simulator[data-state="warning"] .simulator__light { background: var(--amber); box-shadow: 0 0 0 4px rgba(255, 184, 0, 0.28); }
+.simulator[data-state="alert"] .simulator__light { background: var(--red); box-shadow: 0 0 0 4px rgba(229, 72, 77, 0.32); animation: pulse 0.9s ease-in-out infinite; }
+
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+
+.simulator__count { font-family: var(--font-mono); display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px; }
+.simulator__number { font-size: 3.1rem; font-weight: 600; line-height: 1; }
+.simulator__slash { color: #55628a; font-size: 1.5rem; }
+.simulator__max { color: #8494bd; font-size: 1.5rem; }
+
+.simulator__bar { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; margin-bottom: 12px; }
+.simulator__bar-fill { height: 100%; width: 0%; background: #10b981; border-radius: 999px; transition: width 0.35s ease, background 0.25s ease; }
+.simulator[data-state="warning"] .simulator__bar-fill { background: var(--amber); }
+.simulator[data-state="alert"] .simulator__bar-fill { background: var(--red); }
+
+.simulator__status { font-size: 0.86rem; font-weight: 600; color: #10b981; margin-bottom: 18px; }
+.simulator[data-state="warning"] .simulator__status { color: var(--amber); }
+.simulator[data-state="alert"] .simulator__status { color: #ff8f92; }
+
+.simulator__controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+
+.sim-btn {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 10px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sim-btn:hover { background: rgba(255, 255, 255, 0.14); }
+.sim-btn--in { border-color: var(--blue); }
+.sim-btn--auto.is-active { background: var(--cyan); border-color: var(--cyan); color: var(--navy-deep); }
+
+.simulator__meta {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: #97a5c4; }
+.meta-row__value { font-family: var(--font-mono); color: #cfdaf2; font-weight: 500; transition: color 0.2s ease; }
+.meta-row__value.is-flash { color: var(--cyan); }
+
+.simulator__note { font-size: 0.72rem; color: #63709a; margin: 0; }
+
+/* ---------- Componentes ---------- */
+.grid { display: grid; gap: 20px; margin-top: 32px; }
+.grid--components { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.component-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.component-card--core { border-color: var(--cyan-dark); box-shadow: 0 0 0 1px var(--cyan-dark) inset; }
+
+.component-card__tag {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--cyan-dark);
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+
+.component-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--blue-tint);
+  margin-bottom: 14px;
+  font-size: 1.2rem;
+}
+
+.component-card p { font-size: 0.92rem; margin-bottom: 0; }
+
+/* ---------- Timeline ---------- */
+.timeline { list-style: none; margin-top: 48px; display: flex; flex-direction: column; }
+
+.timeline__step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.timeline__step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 44px;
+  bottom: 0;
+  width: 2px;
+  background: #cddcfb;
+}
+
+.timeline__index {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.timeline__index--1 { background: var(--blue); }
+.timeline__index--2 { background: var(--cyan-dark); }
+.timeline__index--3 { background: var(--green-mid); }
+.timeline__index--4 { background: var(--navy-deep); }
+.timeline__index--5 { background: var(--blue-dark); }
+
+.timeline__step h3 { margin-bottom: 4px; }
+.timeline__step p { margin-bottom: 10px; max-width: 60ch; }
+
+.timeline__tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--blue-dark);
+  background: var(--blue-tint);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* ---------- Impacto / ODS ---------- */
+.grid--ods { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+.ods-card {
+  display: flex;
+  gap: 18px;
+  background: var(--navy-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 26px;
+}
+
+.ods-card__number {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--navy-deep);
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ods-card__number--cyan { background: var(--cyan); }
+.ods-card__number--green { background: #4fd39a; }
+
+.ods-card h3 { color: #fff; }
+.ods-card p { color: #a9b5cf; margin-bottom: 0; font-size: 0.92rem; }
+
+.stat-row {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-row .stat__number, .stat-row .stat__suffix {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.stat-row .stat p { margin: 6px 0 0; font-size: 0.85rem; max-width: 22ch; color: #a9b5cf; }
+
+/* ---------- Evidencia / Demostración ---------- */
+.grid--media { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+.media-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--blue-tint);
+  overflow: hidden;
+}
+
+.media-asset {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-asset.is-hidden { display: none; }
+
+.media-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 20px;
+  border: 1.5px dashed #b9cdfa;
+  margin: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.media-placeholder[hidden] { display: none; }
+
+.media-placeholder__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.media-placeholder p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--blue-dark);
+  font-weight: 500;
+  max-width: 26ch;
+}
+
+.media-card__body { padding: 18px 20px 22px; flex-grow: 1; display: flex; flex-direction: column; }
+.media-card__body h3 { margin-bottom: 4px; }
+.media-card__body p { margin-bottom: 0; font-size: 0.88rem; }
+
+.media-card__tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cyan-dark);
+  background: #e2fbff;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+/* Audio Player */
+.audio-player-container {
+  padding: 20px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.audio-player-container audio {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* Document Dropdown Details */
+.doc-accordion {
+  margin-top: 32px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.doc-accordion__summary {
+  padding: 20px 24px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--navy-deep);
+  cursor: pointer;
+  background: #f8fafc;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s ease;
+}
+
+.doc-accordion__summary::-webkit-details-marker { display: none; }
+.doc-accordion__summary:hover { background: var(--blue-tint); }
+
+.doc-accordion__summary::after {
+  content: "▼";
+  font-size: 0.8rem;
+  color: var(--gray);
+  transition: transform 0.2s ease;
+}
+
+.doc-accordion[open] .doc-accordion__summary::after {
+  transform: rotate(180deg);
+}
+
+.doc-accordion__content {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.doc-frame-wrapper {
+  width: 100%;
+  height: 600px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.doc-frame-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.doc-download-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ---------- Footer ---------- */
+.footer { background: var(--navy-deep); padding: 44px 0 0; }
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer__brand { color: #fff; font-weight: 600; margin-bottom: 4px; }
+.footer__sub { font-size: 0.84rem; color: #7b88a8; margin: 0; max-width: 40ch; }
+
+.footer__links { display: flex; flex-wrap: wrap; gap: 16px; align-content: flex-start; }
+.footer__links a { font-size: 0.84rem; color: #a9b5cf; font-weight: 500; }
+.footer__links a:hover { color: var(--cyan); }
+
+.footer__bottom {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.footer__bottom p { margin: 0; color: #63709a; font-size: 0.8rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero__inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .navbar__toggle { display: flex; }
+
+  .navbar__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--navy-deep);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 24px 20px;
+    gap: 2px;
+    display: none;
+  }
+
+  .navbar__menu.is-open { display: flex; }
+  .navbar__link { width: 100%; }
+}
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>¡Hola, mundo!</h1>
-    <p>Esta es una estructura básica con HTML y CSS integrados en la etiqueta <code>&lt;style&gt;</code>.</p>
-    <a href="#" class="btn">Unirse</a>
-  </div>
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="#inicio" class="navbar__brand">
+        <img src="recursos/LOGO_CAPOUILLIEZ - Fondos oscuros-03 (1).png" alt="Logo Colegio" class="navbar__logo">
+        Control de Aforo <span>IRTRA Petapa</span>
+      </a>
 
+      <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="navbar__menu" id="navMenu">
+        <a href="#inicio" class="navbar__link">Inicio</a>
+        <a href="#componentes" class="navbar__link">Componentes y Funcionamiento</a>
+        <a href="#evidencia" class="navbar__link">Evidencia</a>
+        <a href="#impacto" class="navbar__link">Impacto ODS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- INICIO -->
+    <section id="inicio" class="section section--dark section--hero">
+      <div class="section__inner hero__inner">
+        <div class="hero__copy">
+          <p class="tag-pill">Sistema Autónomo de Control de Aforo · IRTRA Petapa</p>
+          <h1>Seguridad e innovación<br><span class="text-cyan">en zonas de alto tránsito.</span></h1>
+          <p class="lead">
+            Automatizamos el control de aforo en las áreas de espera del parque IRTRA Petapa mediante un sistema electrónico autónomo con Arduino Uno. Prevenimos colapsos y sobrecargas monitoreando en tiempo real sin depender del conteo manual.
+          </p>
+          <div class="hero__badges">
+            <span class="badge badge--cyan">ODS 9 · Industria, innovación e infraestructura</span>
+            <span class="badge badge--green">ODS 11 · Ciudades y comunidades sostenibles</span>
+          </div>
+          <div class="hero__actions">
+            <a href="#componentes" class="btn btn--solid">Ver componentes</a>
+            <a href="#evidencia" class="btn btn--ghost">Ver evidencia</a>
+          </div>
+        </div>
+
+        <div class="hero__widget">
+          <div class="simulator" id="simulator" data-state="normal">
+            <div class="simulator__header">
+              <span class="simulator__title">Simulación de aforo — Plataforma de espera</span>
+              <span class="simulator__light" id="simLight" aria-hidden="true"></span>
+            </div>
+
+            <div class="simulator__count">
+              <span class="simulator__number" id="simCount">0</span>
+              <span class="simulator__slash">/</span>
+              <span class="simulator__max" id="simMax">40</span>
+            </div>
+
+            <div class="simulator__bar">
+              <div class="simulator__bar-fill" id="simBar"></div>
+            </div>
+
+            <p class="simulator__status" id="simStatus">Aforo disponible (Verde)</p>
+
+            <div class="simulator__controls">
+              <button class="sim-btn sim-btn--in" id="btnIn" type="button">+ Ingreso (PIR)</button>
+              <button class="sim-btn sim-btn--out" id="btnOut" type="button">− Salida (Boton)</button>
+              <button class="sim-btn sim-btn--auto" id="btnAuto" type="button">Simulación automática</button>
+              <button class="sim-btn sim-btn--reset" id="btnReset" type="button">Reiniciar</button>
+            </div>
+
+            <div class="simulator__meta">
+              <div class="meta-row">
+                <span>Sensor PIR (Entrada)</span>
+                <span class="meta-row__value" id="metaIn">En espera</span>
+              </div>
+              <div class="meta-row">
+                <span>Push Button (Salida)</span>
+                <span class="meta-row__value" id="metaOut">En espera</span>
+              </div>
+              <div class="meta-row">
+                <span>Buzzer (Alerta sonora)</span>
+                <span class="meta-row__value" id="metaAlarm">Inactivo</span>
+              </div>
+            </div>
+
+            <p class="simulator__note">Simulación interactiva basada en la lógica C++ programada para Arduino Uno en Tinkercad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENTES Y FUNCIONAMIENTO -->
+    <section id="componentes" class="section">
+      <div class="section__inner">
+        <p class="eyebrow">Hardware y Estructura del Proyecto</p>
+        <h2>Componentes del Sistema</h2>
+        <p class="section__intro">Selección de elementos electrónicos que integran el circuito y sus roles en la automatización del aforo.</p>
+
+        <div class="grid grid--components">
+          <article class="component-card component-card--core">
+            <span class="component-card__tag">Cerebro</span>
+            <span class="component-card__icon">🤖</span>
+            <h3>Arduino Uno R3</h3>
+            <p>Microcontrolador principal encargado de procesar la lógica de programación, recibir datos de los sensores y activar los actuadores.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">🚶‍♂️</span>
+            <h3>Sensor PIR</h3>
+            <p>Detecta automáticamente cada persona que ingresa a la zona de espera, incrementando el contador del sistema (+1).</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">🔘</span>
+            <h3>Push Button</h3>
+            <p>Utilizado por el operador para registrar la salida de visitantes del área de espera, decrementando el contador (-1).</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">📺</span>
+            <h3>Pantalla LCD 16*2</h3>
+            <p>Muestra continuamente el conteo en tiempo real, el límite máximo permitido y el estado del área (Disponible / Cerca del límite / Llena).</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">🚦</span>
+            <h3>LED RGB</h3>
+            <p>Indicador visual tricolor de ocupación: <strong>Verde</strong> (espacio disponible), <strong>Amarillo</strong> (cerca del límite) y <strong>Rojo</strong> (aforo lleno).</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">🔊</span>
+            <h3>Buzzer</h3>
+            <p>Emite una alerta sonora instantánea cuando el aforo alcanza su capacidad máxima, notificando inmediatamente al personal.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">💡</span>
+            <h3>LED Indicador</h3>
+            <p>LED simple que confirma que el sistema está energizado y operando de manera correcta en todo momento.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">⚡</span>
+            <h3>Protoboard, Resistencias y Jumpers</h3>
+            <p>Infraestructura de montaje para la interconexión eléctrica, protección contra sobrecorriente y distribución de señales.</p>
+          </article>
+        </div>
+
+        <!-- FUNCIONAMIENTO INTEGRADO -->
+        <div style="margin-top: 64px;">
+          <p class="eyebrow">Ciclo de Operación</p>
+          <h2>Lógica de Control en Tiempo Real</h2>
+          <p class="section__intro">Secuencia lógica automatizada para la gestión segura del flujo de personas.</p>
+
+          <ol class="timeline">
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--1">01</span>
+              <div>
+                <h3>Registro de Ingreso</h3>
+                <p>El sensor PIR detecta movimiento en el acceso y envía una señal al Arduino para sumar 1 unidad al contador global de aforo.</p>
+                <span class="timeline__tag">Entrada: Sensor PIR</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--2">02</span>
+              <div>
+                <h3>Registro de Salida</h3>
+                <p>El operador presiona el Push Button cuando los visitantes abordan la atracción o salen de la zona, restando las unidades correspondientes.</p>
+                <span class="timeline__tag">Salida: Push Button</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--3">03</span>
+              <div>
+                <h3>Evaluación de Umbrales</h3>
+                <p>El programa compara el contador actual contra los límites: aforo bajo (&lt;70%), medio (70%-99%) o aforo máximo (100%).</p>
+                <span class="timeline__tag">Procesamiento: Arduino C++</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--4">04</span>
+              <div>
+                <h3>Visualización e Interfaz</h3>
+                <p>La Pantalla LCD 16x2 y el LED RGB actualizan su estado al instante para informar tanto al personal como a los visitantes.</p>
+                <span class="timeline__tag">Salida: LCD 16*2 + LED RGB</span>
+              </div>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__index timeline__index--5">05</span>
+              <div>
+                <h3>Alerta de Seguridad</h3>
+                <p>Al llegar al límite seguro, el buzzer suena una vez como aviso de detención de paso, previniendo colapsos de plataforma.</p>
+                <span class="timeline__tag">Alerta: Buzzer + Luz Roja</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVIDENCIA -->
+    <section id="evidencia" class="section section--alt">
+      <div class="section__inner">
+        <p class="eyebrow">Entregables y Demostración</p>
+        <h2>Evidencia del Proyecto</h2>
+        <p class="section__intro">Pruebas del funcionamiento del circuito simulado, montaje físico, podcast explicativo e investigación formal.</p>
+
+        <div class="grid grid--media">
+
+          <!-- SIMULACION TINKERCAD -->
+          <article class="media-card">
+            <div class="media-frame">
+              <img
+                class="media-asset"
+                id="mediaImgSim"
+                src="recursos/circuitosimulado.png"
+                alt="Captura de la simulación del circuito en Tinkercad">
+              <div class="media-placeholder" id="mediaImgSimPlaceholder" hidden>
+                <span class="media-placeholder__icon">🖼️</span>
+                <p>Agrega la captura del circuito en recursos/circuitosimulado.png</p>
+              </div>
+            </div>
+            <div class="media-card__body">
+              <span class="media-card__tag">Simulación</span>
+              <h3>Circuito en Tinkercad</h3>
+              <p>Diagrama del montaje simulado con Arduino, sensores y pantallas.</p>
+            </div>
+          </article>
+
+          <!-- VIDEO SIMULADO -->
+          <article class="media-card">
+            <div class="media-frame">
+              <video
+                class="media-asset"
+                id="mediaVideoSim"
+                controls
+                preload="metadata">
+                <source src="recursos/vidsimulado.mp4" type="video/mp4">
+              </video>
+              <div class="media-placeholder" id="mediaVideoSimPlaceholder" hidden>
+                <span class="media-placeholder__icon">▶</span>
+                <p>Agrega el video simulado en recursos/vidsimulado.mp4</p>
+              </div>
+            </div>
+            <div class="media-card__body">
+              <span class="media-card__tag">Demostración Simulación</span>
+              <h3>Prueba en Tinkercad</h3>
+              <p>Video del funcionamiento lógico del código, incrementos, decrementos y alertas.</p>
+            </div>
+          </article>
+
+          <!-- VIDEO FISICO -->
+          <article class="media-card">
+            <div class="media-frame">
+              <video
+                class="media-asset"
+                id="mediaVideoFisico"
+                controls
+                preload="metadata">
+                <source src="recursos/vidfisico.mp4" type="video/mp4">
+              </video>
+              <div class="media-placeholder" id="mediaVideoFisicoPlaceholder" hidden>
+                <span class="media-placeholder__icon">▶</span>
+                <p>Agrega el video físico en recursos/vidfisico.mp4</p>
+              </div>
+            </div>
+            <div class="media-card__body">
+              <span class="media-card__tag">Montaje Físico</span>
+              <h3>Circuito en la Vida Real</h3>
+              <p>Demostración del prototipo electrónico operando en hardware real.</p>
+            </div>
+          </article>
+
+          <!-- PODCAST AUDIO -->
+          <article class="media-card">
+            <div class="audio-player-container">
+              <span style="font-size: 2.5rem;">🎙️</span>
+              <audio controls preload="none">
+                <source src="recursos/podcast.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+              </audio>
+            </div>
+            <div class="media-card__body">
+              <span class="media-card__tag">Audio / Podcast</span>
+              <h3>Podcast Informativo del Proyecto</h3>
+              <p>Audio explicativo con una duración máxima de 5 minutos sobre la problemática e innovación planteada.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- DOCUMENTO DESPLEGABLE (WORD / PDF) -->
+        <details class="doc-accordion">
+          <summary class="doc-accordion__summary">
+            📄 Ver Documento de Investigación Formal (Word / PDF)
+          </summary>
+          <div class="doc-accordion__content">
+            <div class="doc-download-bar">
+              <p style="margin: 0;"><strong>Documento Técnico de Investigación</strong> — Proyecto IRTRA Petapa</p>
+              <a href="recursos/Investigacion_IRTRA_Petapa.docx" class="btn btn--solid" download style="padding: 8px 16px; font-size: 0.85rem;">
+                📥 Descargar Archivo Word (.docx)
+              </a>
+            </div>
+            <div class="doc-frame-wrapper">
+              <iframe src="recursos/Investigacion_IRTRA_Petapa.pdf" title="Previsualización del Documento de Investigación">
+                <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/Investigacion_IRTRA_Petapa.docx">descargar el documento Word aquí</a>.</p>
+              </iframe>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- IMPACTO / ODS -->
+    <section id="impacto" class="section section--dark">
+      <div class="section__inner">
+        <p class="eyebrow eyebrow--dark">Alcance Social y Sostenible</p>
+        <h2 class="text-white">Alineación con los ODS</h2>
+        <p class="section__intro text-muted">Aporte directo de la solución tecnológica a los Objetivos de Desarrollo Sostenible de la Agenda 2030.</p>
+
+        <div class="grid grid--ods">
+          <article class="ods-card">
+            <span class="ods-card__number ods-card__number--cyan">9</span>
+            <div>
+              <h3>Industria, Innovación e Infraestructura</h3>
+              <p>Moderniza la infraestructura del parque mediante tecnología accesible de bajo costo, automatizando un monitoreo crítico de seguridad antes realizado de forma puramente manual.</p>
+            </div>
+          </article>
+
+          <article class="ods-card">
+            <span class="ods-card__number ods-card__number--green">11</span>
+            <div>
+              <h3>Ciudades y Comunidades Sostenibles</h3>
+              <p>Promueve espacios públicos y recreativos seguros, previniendo accidentes por colapso de estructuras o aglomeraciones en zonas de alto tránsito de visitantes.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat__number" data-target="6">0</span>
+            <p>Componentes integrados al circuito</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
+            <p>Automatización de alertas sonoras y visuales</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="0">0</span>
+            <p>Margen de omisión por fatiga visual</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="1">0</span><span class="stat__suffix">s</span>
+            <p>Respuesta inmediata del microcontrolador</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <p class="footer__brand">Sistema Autónomo de Control de Aforo IRTRA Petapa</p>
+        <p class="footer__sub">Proyecto de tecnología simulado en Tinkercad e implementado en físico.</p>
+      </div>
+      <nav class="footer__links">
+        <a href="#inicio">Inicio</a>
+        <a href="#componentes">Componentes</a>
+        <a href="#evidencia">Evidencia</a>
+        <a href="#impacto">Impacto ODS</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
