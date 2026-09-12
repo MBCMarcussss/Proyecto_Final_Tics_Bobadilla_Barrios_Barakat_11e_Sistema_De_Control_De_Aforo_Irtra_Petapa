@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Control de Aforo · IRTRA Petapa</title>
+  <title>Sistema Autónomo de Control de Aforo · IRTRA Petapa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -263,11 +263,11 @@ ul, ol { margin: 0; padding: 0; }
 .simulator__title { font-size: 0.78rem; color: #97a5c4; font-weight: 500; }
 
 .simulator__light {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.25);
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -282,11 +282,11 @@ ul, ol { margin: 0; padding: 0; }
 .simulator__max { color: #8494bd; font-size: 1.5rem; }
 
 .simulator__bar { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; margin-bottom: 12px; }
-.simulator__bar-fill { height: 100%; width: 0%; background: var(--blue); border-radius: 999px; transition: width 0.35s ease, background 0.25s ease; }
+.simulator__bar-fill { height: 100%; width: 0%; background: #10b981; border-radius: 999px; transition: width 0.35s ease, background 0.25s ease; }
 .simulator[data-state="warning"] .simulator__bar-fill { background: var(--amber); }
 .simulator[data-state="alert"] .simulator__bar-fill { background: var(--red); }
 
-.simulator__status { font-size: 0.86rem; font-weight: 600; color: #cfdaf2; margin-bottom: 18px; }
+.simulator__status { font-size: 0.86rem; font-weight: 600; color: #10b981; margin-bottom: 18px; }
 .simulator[data-state="warning"] .simulator__status { color: var(--amber); }
 .simulator[data-state="alert"] .simulator__status { color: #ff8f92; }
 
@@ -326,7 +326,7 @@ ul, ol { margin: 0; padding: 0; }
 
 /* ---------- Componentes ---------- */
 .grid { display: grid; gap: 20px; margin-top: 32px; }
-.grid--components { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.grid--components { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 
 .component-card {
   position: relative;
@@ -359,12 +359,12 @@ ul, ol { margin: 0; padding: 0; }
   border-radius: 10px;
   background: var(--blue-tint);
   margin-bottom: 14px;
+  font-size: 1.2rem;
 }
 
-.component-card__icon svg { width: 22px; height: 22px; fill: none; stroke: var(--blue-dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .component-card p { font-size: 0.92rem; margin-bottom: 0; }
 
-/* ---------- Timeline (Funcionamiento Reubicado) ---------- */
+/* ---------- Timeline ---------- */
 .timeline { list-style: none; margin-top: 48px; display: flex; flex-direction: column; }
 
 .timeline__step {
@@ -468,76 +468,16 @@ ul, ol { margin: 0; padding: 0; }
 
 .stat-row .stat p { margin: 6px 0 0; font-size: 0.85rem; max-width: 22ch; color: #a9b5cf; }
 
-/* ---------- Footer ---------- */
-.footer { background: var(--navy-deep); padding: 44px 0 0; }
-
-.footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: space-between;
-  padding-bottom: 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.footer__brand { color: #fff; font-weight: 600; margin-bottom: 4px; }
-.footer__sub { font-size: 0.84rem; color: #7b88a8; margin: 0; max-width: 40ch; }
-
-.footer__links { display: flex; flex-wrap: wrap; gap: 16px; align-content: flex-start; }
-
-.footer__links a { font-size: 0.84rem; color: #a9b5cf; font-weight: 500; }
-.footer__links a:hover { color: var(--cyan); }
-
-.footer__bottom {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 20px 28px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-}
-
-.footer__bottom p { margin: 0; color: #63709a; font-size: 0.8rem; }
-
-/* ---------- Responsive ---------- */
-@media (max-width: 900px) {
-  .hero__inner { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 760px) {
-  .navbar__toggle { display: flex; }
-
-  .navbar__menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    background: var(--navy-deep);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 12px 24px 20px;
-    gap: 2px;
-    display: none;
-  }
-
-  .navbar__menu.is-open { display: flex; }
-  .navbar__link { width: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .simulator[data-state="alert"] .simulator__light { animation: none; }
-}
-
 /* ---------- Evidencia / Demostración ---------- */
-.grid--media { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.grid--media { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
 .media-card {
   background: var(--paper);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .media-frame {
@@ -595,12 +535,13 @@ ul, ol { margin: 0; padding: 0; }
   max-width: 26ch;
 }
 
-.media-card__body { padding: 18px 20px 22px; }
+.media-card__body { padding: 18px 20px 22px; flex-grow: 1; display: flex; flex-direction: column; }
 .media-card__body h3 { margin-bottom: 4px; }
 .media-card__body p { margin-bottom: 0; font-size: 0.88rem; }
 
 .media-card__tag {
   display: inline-block;
+  align-self: flex-start;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--cyan-dark);
@@ -610,104 +551,144 @@ ul, ol { margin: 0; padding: 0; }
   margin-bottom: 8px;
 }
 
-/* ---------- Reproductor de música flotante ---------- */
-html { scrollbar-gutter: stable; }
-
-.music-widget {
-  position: fixed;
-  right: 28px;
-  bottom: 28px;
-  z-index: 50;
-  width: 48px;
-  height: 48px;
-}
-
-.music-bubble {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: var(--navy-card);
-  color: var(--cyan);
-  font-size: 1.2rem;
-  line-height: 1;
-  cursor: pointer;
+/* Audio Player */
+.audio-player-container {
+  padding: 20px;
+  background: #f8fafc;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  box-shadow: 0 12px 26px -10px rgba(2, 6, 20, 0.55);
-  transition: transform 0.15s ease;
-}
-
-.music-bubble:hover { transform: scale(1.06); }
-.music-bubble.is-playing { color: var(--navy-deep); background: var(--cyan); }
-
-.music-panel {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 12px);
-  width: 220px;
-  background: var(--navy-card);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius);
-  padding: 16px;
-  color: #fff;
-  box-shadow: 0 20px 44px -18px rgba(2, 6, 20, 0.7);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(8px);
-  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
-}
-
-.music-panel.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
-
-.music-panel__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--cyan);
-  margin: 0 0 6px;
-}
-
-.music-panel__song {
-  font-size: 0.88rem;
-  font-weight: 600;
-  margin: 0 0 12px;
-  color: #fff;
-  line-height: 1.35;
-}
-
-.music-panel__controls {
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
 }
 
-.music-play {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  background: var(--blue);
-  color: #fff;
-  font-size: 0.9rem;
+.audio-player-container audio {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* Document Dropdown Details */
+.doc-accordion {
+  margin-top: 32px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.doc-accordion__summary {
+  padding: 20px 24px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--navy-deep);
   cursor: pointer;
+  background: #f8fafc;
+  list-style: none;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  justify-content: space-between;
+  transition: background 0.15s ease;
 }
 
-.music-play:hover { background: var(--blue-dark); }
+.doc-accordion__summary::-webkit-details-marker { display: none; }
+.doc-accordion__summary:hover { background: var(--blue-tint); }
 
-.music-panel__status {
-  font-size: 0.74rem;
-  color: #97a5c4;
-  margin: 0;
+.doc-accordion__summary::after {
+  content: "▼";
+  font-size: 0.8rem;
+  color: var(--gray);
+  transition: transform 0.2s ease;
+}
+
+.doc-accordion[open] .doc-accordion__summary::after {
+  transform: rotate(180deg);
+}
+
+.doc-accordion__content {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.doc-frame-wrapper {
+  width: 100%;
+  height: 600px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.doc-frame-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.doc-download-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ---------- Footer ---------- */
+.footer { background: var(--navy-deep); padding: 44px 0 0; }
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer__brand { color: #fff; font-weight: 600; margin-bottom: 4px; }
+.footer__sub { font-size: 0.84rem; color: #7b88a8; margin: 0; max-width: 40ch; }
+
+.footer__links { display: flex; flex-wrap: wrap; gap: 16px; align-content: flex-start; }
+.footer__links a { font-size: 0.84rem; color: #a9b5cf; font-weight: 500; }
+.footer__links a:hover { color: var(--cyan); }
+
+.footer__bottom {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.footer__bottom p { margin: 0; color: #63709a; font-size: 0.8rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero__inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .navbar__toggle { display: flex; }
+
+  .navbar__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--navy-deep);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 24px 20px;
+    gap: 2px;
+    display: none;
+  }
+
+  .navbar__menu.is-open { display: flex; }
+  .navbar__link { width: 100%; }
 }
   </style>
 </head>
@@ -717,7 +698,7 @@ html { scrollbar-gutter: stable; }
     <div class="navbar__inner">
       <a href="#inicio" class="navbar__brand">
         <img src="recursos/logocolegio.png" alt="Logo Colegio" class="navbar__logo">
-        Control de Aforo <span>IRTRA</span>
+        Control de Aforo <span>IRTRA Petapa</span>
       </a>
 
       <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
@@ -739,12 +720,10 @@ html { scrollbar-gutter: stable; }
     <section id="inicio" class="section section--dark section--hero">
       <div class="section__inner hero__inner">
         <div class="hero__copy">
-          <p class="tag-pill">Proyecto final de tecnología · Simulado en Tinkercad</p>
-          <h1>Cuando la fila crece,<br><span class="text-cyan">el sistema lo sabe primero.</span></h1>
+          <p class="tag-pill">Sistema Autónomo de Control de Aforo · IRTRA Petapa</p>
+          <h1>Seguridad e innovación<br><span class="text-cyan">en zonas de alto tránsito.</span></h1>
           <p class="lead">
-            El Sistema de Control de Aforo IRTRA Petapa cuenta ingresos y salidas en tiempo real,
-            muestra el aforo de la zona de espera y activa una alerta visual y sonora antes de
-            llegar al límite permitido.
+            Automatizamos el control de aforo en las áreas de espera del parque IRTRA Petapa mediante un sistema electrónico autónomo con Arduino Uno. Prevenimos colapsos y sobrecargas monitoreando en tiempo real sin depender del conteo manual.
           </p>
           <div class="hero__badges">
             <span class="badge badge--cyan">ODS 9 · Industria, innovación e infraestructura</span>
@@ -759,7 +738,7 @@ html { scrollbar-gutter: stable; }
         <div class="hero__widget">
           <div class="simulator" id="simulator" data-state="normal">
             <div class="simulator__header">
-              <span class="simulator__title">Simulación de aforo — zona de espera</span>
+              <span class="simulator__title">Simulación de aforo — Plataforma de espera</span>
               <span class="simulator__light" id="simLight" aria-hidden="true"></span>
             </div>
 
@@ -773,31 +752,31 @@ html { scrollbar-gutter: stable; }
               <div class="simulator__bar-fill" id="simBar"></div>
             </div>
 
-            <p class="simulator__status" id="simStatus">Aforo normal</p>
+            <p class="simulator__status" id="simStatus">Aforo disponible (Verde)</p>
 
             <div class="simulator__controls">
-              <button class="sim-btn sim-btn--in" id="btnIn" type="button">+ Ingreso</button>
-              <button class="sim-btn sim-btn--out" id="btnOut" type="button">− Salida</button>
+              <button class="sim-btn sim-btn--in" id="btnIn" type="button">+ Ingreso (PIR)</button>
+              <button class="sim-btn sim-btn--out" id="btnOut" type="button">− Salida (Boton)</button>
               <button class="sim-btn sim-btn--auto" id="btnAuto" type="button">Simulación automática</button>
               <button class="sim-btn sim-btn--reset" id="btnReset" type="button">Reiniciar</button>
             </div>
 
             <div class="simulator__meta">
               <div class="meta-row">
-                <span>Sensor de entrada</span>
+                <span>Sensor PIR (Entrada)</span>
                 <span class="meta-row__value" id="metaIn">En espera</span>
               </div>
               <div class="meta-row">
-                <span>Sensor de salida</span>
+                <span>Push Button (Salida)</span>
                 <span class="meta-row__value" id="metaOut">En espera</span>
               </div>
               <div class="meta-row">
-                <span>Alarma sonora</span>
-                <span class="meta-row__value" id="metaAlarm">Inactiva</span>
+                <span>Buzzer (Alerta sonora)</span>
+                <span class="meta-row__value" id="metaAlarm">Inactivo</span>
               </div>
             </div>
 
-            <p class="simulator__note">Comportamiento basado en el circuito diseñado y probado en Tinkercad.</p>
+            <p class="simulator__note">Simulación interactiva basada en la lógica C++ programada para Arduino Uno en Tinkercad.</p>
           </div>
         </div>
       </div>
@@ -806,98 +785,106 @@ html { scrollbar-gutter: stable; }
     <!-- COMPONENTES Y FUNCIONAMIENTO -->
     <section id="componentes" class="section">
       <div class="section__inner">
-        <p class="eyebrow">Hardware y Dinámica Operativa</p>
-        <h2>Cinco componentes, una respuesta coordinada</h2>
-        <p class="section__intro">Elementos seleccionados por su facilidad de simulación y su rol dentro del circuito automatizado.</p>
+        <p class="eyebrow">Hardware y Estructura del Proyecto</p>
+        <h2>Componentes del Sistema</h2>
+        <p class="section__intro">Selección de elementos electrónicos que integran el circuito y sus roles en la automatización del aforo.</p>
 
         <div class="grid grid--components">
           <article class="component-card component-card--core">
-            <span class="component-card__tag">Núcleo del sistema</span>
-            <span class="component-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="4"/><path d="M13 20h14M20 13v14"/></svg>
-            </span>
-            <h3>Microcontrolador Arduino</h3>
-            <p>Recibe la señal de los sensores, lleva el conteo y decide cuándo activar la alerta.</p>
+            <span class="component-card__tag">Cerebro</span>
+            <span class="component-card__icon">🤖</span>
+            <h3>Arduino Uno R3</h3>
+            <p>Microcontrolador principal encargado de procesar la lógica de programación, recibir datos de los sensores y activar los actuadores.</p>
           </article>
 
           <article class="component-card">
-            <span class="component-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13"/><path d="M20 13v7l5 4"/></svg>
-            </span>
-            <h3>Sensores de entrada y salida</h3>
-            <p>Detectan el paso de cada visitante para sumar o restar del conteo automáticamente.</p>
+            <span class="component-card__icon">🚶‍♂️</span>
+            <h3>Sensor PIR</h3>
+            <p>Detecta automáticamente cada persona que ingresa a la zona de espera, incrementando el contador del sistema (+1).</p>
           </article>
 
           <article class="component-card">
-            <span class="component-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40"><circle cx="20" cy="14" r="7"/><path d="M14 33l6-12 6 12"/></svg>
-            </span>
-            <h3>Indicador luminoso</h3>
-            <p>Cambia de color según el nivel de aforo: normal, advertencia y límite alcanzado.</p>
+            <span class="component-card__icon">🔘</span>
+            <h3>Push Button</h3>
+            <p>Utilizado por el operador para registrar la salida de visitantes del área de espera, decrementando el contador (-1).</p>
           </article>
 
           <article class="component-card">
-            <span class="component-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40"><path d="M8 20a12 12 0 0 1 24 0"/><path d="M20 20v13"/></svg>
-            </span>
-            <h3>Alarma sonora</h3>
-            <p>Emite una señal audible para el personal cuando se llega al límite de la zona.</p>
+            <span class="component-card__icon">📺</span>
+            <h3>Pantalla LCD 16*2</h3>
+            <p>Muestra continuamente el conteo en tiempo real, el límite máximo permitido y el estado del área (Disponible / Cerca del límite / Llena).</p>
           </article>
 
           <article class="component-card">
-            <span class="component-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40"><rect x="5" y="11" width="30" height="18" rx="3"/><path d="M12 29v4h16v-4"/></svg>
-            </span>
-            <h3>Pantalla de aforo</h3>
-            <p>Muestra el conteo actual frente a la zona de espera, visible para personal y visitantes.</p>
+            <span class="component-card__icon">🚦</span>
+            <h3>LED RGB</h3>
+            <p>Indicador visual tricolor de ocupación: <strong>Verde</strong> (espacio disponible), <strong>Amarillo</strong> (cerca del límite) y <strong>Rojo</strong> (aforo lleno).</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">🔊</span>
+            <h3>Buzzer</h3>
+            <p>Emite una alerta sonora instantánea cuando el aforo alcanza su capacidad máxima, notificando inmediatamente al personal.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">💡</span>
+            <h3>LED Indicador</h3>
+            <p>LED simple que confirma que el sistema está energizado y operando de manera correcta en todo momento.</p>
+          </article>
+
+          <article class="component-card">
+            <span class="component-card__icon">⚡</span>
+            <h3>Protoboard, Resistencias y Jumpers</h3>
+            <p>Infraestructura de montaje para la interconexión eléctrica, protección contra sobrecorriente y distribución de señales.</p>
           </article>
         </div>
 
         <!-- FUNCIONAMIENTO INTEGRADO -->
         <div style="margin-top: 64px;">
-          <p class="eyebrow">Ciclo operativo</p>
-          <h2>Cinco decisiones tomadas en tiempo real</h2>
-          <p class="section__intro">El sistema evalúa el conteo de forma continua y reacciona de manera autónoma, sin que el personal deba intervenir.</p>
+          <p class="eyebrow">Ciclo de Operación</p>
+          <h2>Lógica de Control en Tiempo Real</h2>
+          <p class="section__intro">Secuencia lógica automatizada para la gestión segura del flujo de personas.</p>
 
           <ol class="timeline">
             <li class="timeline__step">
               <span class="timeline__index timeline__index--1">01</span>
               <div>
-                <h3>Detección</h3>
-                <p>Los sensores ubicados en la entrada y salida detectan el paso de cada visitante.</p>
-                <span class="timeline__tag">Sensores: entrada / salida</span>
+                <h3>Registro de Ingreso</h3>
+                <p>El sensor PIR detecta movimiento en el acceso y envía una señal al Arduino para sumar 1 unidad al contador global de aforo.</p>
+                <span class="timeline__tag">Entrada: Sensor PIR</span>
               </div>
             </li>
             <li class="timeline__step">
               <span class="timeline__index timeline__index--2">02</span>
               <div>
-                <h3>Conteo automático</h3>
-                <p>El Arduino suma o restar del total según el sentido del movimiento, sin intervención manual.</p>
-                <span class="timeline__tag">Unidad: Arduino UNO</span>
+                <h3>Registro de Salida</h3>
+                <p>El operador presiona el Push Button cuando los visitantes abordan la atracción o salen de la zona, restando las unidades correspondientes.</p>
+                <span class="timeline__tag">Salida: Push Button</span>
               </div>
             </li>
             <li class="timeline__step">
               <span class="timeline__index timeline__index--3">03</span>
               <div>
-                <h3>Comparación con el límite</h3>
-                <p>El sistema compara el conteo actual contra el aforo máximo permitido para la zona.</p>
-                <span class="timeline__tag">Umbral: aforo máximo de la zona</span>
+                <h3>Evaluación de Umbrales</h3>
+                <p>El programa compara el contador actual contra los límites: aforo bajo (&lt;70%), medio (70%-99%) o aforo máximo (100%).</p>
+                <span class="timeline__tag">Procesamiento: Arduino C++</span>
               </div>
             </li>
             <li class="timeline__step">
               <span class="timeline__index timeline__index--4">04</span>
               <div>
-                <h3>Alerta</h3>
-                <p>Al acercarse o alcanzar el límite, se activan las luces y el sonido para avisar al personal.</p>
-                <span class="timeline__tag">Salida: LED + buzzer</span>
+                <h3>Visualización e Interfaz</h3>
+                <p>La Pantalla LCD 16x2 y el LED RGB actualizan su estado al instante para informar tanto al personal como a los visitantes.</p>
+                <span class="timeline__tag">Salida: LCD 16*2 + LED RGB</span>
               </div>
             </li>
             <li class="timeline__step">
               <span class="timeline__index timeline__index--5">05</span>
               <div>
-                <h3>Visualización</h3>
-                <p>El aforo actual se muestra en tiempo real para personal y visitantes.</p>
-                <span class="timeline__tag">Salida: pantalla de aforo</span>
+                <h3>Alerta de Seguridad</h3>
+                <p>Al llegar al límite seguro, el buzzer suena una vez como aviso de detención de paso, previniendo colapsos de plataforma.</p>
+                <span class="timeline__tag">Alerta: Buzzer + Luz Roja</span>
               </div>
             </li>
           </ol>
@@ -908,12 +895,13 @@ html { scrollbar-gutter: stable; }
     <!-- EVIDENCIA -->
     <section id="evidencia" class="section section--alt">
       <div class="section__inner">
-        <p class="eyebrow">Demostración</p>
-        <h2>Evidencia del proyecto</h2>
-        <p class="section__intro">Registro del circuito simulado en Tinkercad y de su funcionamiento en el montaje físico.</p>
+        <p class="eyebrow">Entregables y Demostración</p>
+        <h2>Evidencia del Proyecto</h2>
+        <p class="section__intro">Pruebas del funcionamiento del circuito simulado, montaje físico, podcast explicativo e investigación formal.</p>
 
         <div class="grid grid--media">
 
+          <!-- SIMULACION TINKERCAD -->
           <article class="media-card">
             <div class="media-frame">
               <img
@@ -923,16 +911,17 @@ html { scrollbar-gutter: stable; }
                 alt="Captura de la simulación del circuito en Tinkercad">
               <div class="media-placeholder" id="mediaImgSimPlaceholder" hidden>
                 <span class="media-placeholder__icon">🖼️</span>
-                <p>Aquí irá la imagen de la simulación en Tinkercad</p>
+                <p>Agrega la captura del circuito en recursos/circuitosimulado.png</p>
               </div>
             </div>
             <div class="media-card__body">
-              <span class="media-card__tag">Imagen</span>
-              <h3>Simulado — Tinkercad</h3>
-              <p>Captura del circuito armado y verificado antes del montaje físico.</p>
+              <span class="media-card__tag">Simulación</span>
+              <h3>Circuito en Tinkercad</h3>
+              <p>Diagrama del montaje simulado con Arduino, sensores y pantallas.</p>
             </div>
           </article>
 
+          <!-- VIDEO SIMULADO -->
           <article class="media-card">
             <div class="media-frame">
               <video
@@ -944,16 +933,17 @@ html { scrollbar-gutter: stable; }
               </video>
               <div class="media-placeholder" id="mediaVideoSimPlaceholder" hidden>
                 <span class="media-placeholder__icon">▶</span>
-                <p>Aquí irá el video del circuito funcionando en Tinkercad</p>
+                <p>Agrega el video simulado en recursos/vidsimulado.mp4</p>
               </div>
             </div>
             <div class="media-card__body">
-              <span class="media-card__tag">Video</span>
-              <h3>Simulado — video Tinkercad</h3>
-              <p>El circuito respondiendo al conteo y activando la alerta dentro del simulador.</p>
+              <span class="media-card__tag">Demostración Simulación</span>
+              <h3>Prueba en Tinkercad</h3>
+              <p>Video del funcionamiento lógico del código, incrementos, decrementos y alertas.</p>
             </div>
           </article>
 
+          <!-- VIDEO FISICO -->
           <article class="media-card">
             <div class="media-frame">
               <video
@@ -965,61 +955,98 @@ html { scrollbar-gutter: stable; }
               </video>
               <div class="media-placeholder" id="mediaVideoFisicoPlaceholder" hidden>
                 <span class="media-placeholder__icon">▶</span>
-                <p>Aquí irá el video del circuito funcionando en la vida real</p>
+                <p>Agrega el video físico en recursos/vidfisico.mp4</p>
               </div>
             </div>
             <div class="media-card__body">
-              <span class="media-card__tag">Video</span>
-              <h3>Físico — vida real</h3>
-              <p>Prueba del circuito armado físicamente, fuera del simulador.</p>
+              <span class="media-card__tag">Montaje Físico</span>
+              <h3>Circuito en la Vida Real</h3>
+              <p>Demostración del prototipo electrónico operando en hardware real.</p>
+            </div>
+          </article>
+
+          <!-- PODCAST AUDIO -->
+          <article class="media-card">
+            <div class="audio-player-container">
+              <span style="font-size: 2.5rem;">🎙️</span>
+              <audio controls preload="none">
+                <source src="recursos/podcast.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+              </audio>
+            </div>
+            <div class="media-card__body">
+              <span class="media-card__tag">Audio / Podcast</span>
+              <h3>Podcast Informativo del Proyecto</h3>
+              <p>Audio explicativo con una duración máxima de 5 minutos sobre la problemática e innovación planteada.</p>
             </div>
           </article>
 
         </div>
+
+        <!-- DOCUMENTO DESPLEGABLE (WORD / PDF) -->
+        <details class="doc-accordion">
+          <summary class="doc-accordion__summary">
+            📄 Ver Documento de Investigación Formal (Word / PDF)
+          </summary>
+          <div class="doc-accordion__content">
+            <div class="doc-download-bar">
+              <p style="margin: 0;"><strong>Documento Técnico de Investigación</strong> — Proyecto IRTRA Petapa</p>
+              <a href="recursos/Investigacion_IRTRA_Petapa.docx" class="btn btn--solid" download style="padding: 8px 16px; font-size: 0.85rem;">
+                📥 Descargar Archivo Word (.docx)
+              </a>
+            </div>
+            <div class="doc-frame-wrapper">
+              <iframe src="recursos/Investigacion_IRTRA_Petapa.pdf" title="Previsualización del Documento de Investigación">
+                <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/Investigacion_IRTRA_Petapa.docx">descargar el documento Word aquí</a>.</p>
+              </iframe>
+            </div>
+          </div>
+        </details>
+
       </div>
     </section>
 
     <!-- IMPACTO / ODS -->
     <section id="impacto" class="section section--dark">
       <div class="section__inner">
-        <p class="eyebrow eyebrow--dark">Alcance global</p>
-        <h2 class="text-white">Alineación con Objetivos de Desarrollo Sostenible</h2>
-        <p class="section__intro text-muted">Cómo un proyecto de ingeniería escolar aporta a metas reales de infraestructura y seguridad urbana.</p>
+        <p class="eyebrow eyebrow--dark">Alcance Social y Sostenible</p>
+        <h2 class="text-white">Alineación con los ODS</h2>
+        <p class="section__intro text-muted">Aporte directo de la solución tecnológica a los Objetivos de Desarrollo Sostenible de la Agenda 2030.</p>
 
         <div class="grid grid--ods">
           <article class="ods-card">
             <span class="ods-card__number ods-card__number--cyan">9</span>
             <div>
-              <h3>Industria, innovación e infraestructura</h3>
-              <p>Introduce tecnología accesible en la gestión de la infraestructura recreativa del parque, automatizando un proceso que hoy depende del conteo manual.</p>
+              <h3>Industria, Innovación e Infraestructura</h3>
+              <p>Moderniza la infraestructura del parque mediante tecnología accesible de bajo costo, automatizando un monitoreo crítico de seguridad antes realizado de forma puramente manual.</p>
             </div>
           </article>
 
           <article class="ods-card">
             <span class="ods-card__number ods-card__number--green">11</span>
             <div>
-              <h3>Ciudades y comunidades sostenibles</h3>
-              <p>Mejora la seguridad y la gestión de un espacio público de alta afluencia, un componente clave para comunidades más seguras y resilientes.</p>
+              <h3>Ciudades y Comunidades Sostenibles</h3>
+              <p>Promueve espacios públicos y recreativos seguros, previniendo accidentes por colapso de estructuras o aglomeraciones en zonas de alto tránsito de visitantes.</p>
             </div>
           </article>
         </div>
 
         <div class="stat-row">
           <div class="stat">
-            <span class="stat__number" data-target="5">0</span>
-            <p>Componentes principales del circuito</p>
-          </div>
-          <div class="stat">
-            <span class="stat__number" data-target="5">0</span>
-            <p>Pasos del ciclo de funcionamiento</p>
+            <span class="stat__number" data-target="6">0</span>
+            <p>Componentes integrados al circuito</p>
           </div>
           <div class="stat">
             <span class="stat__number" data-target="100">0</span><span class="stat__suffix">%</span>
-            <p>Conteo digital, sin registro manual</p>
+            <p>Automatización de alertas sonoras y visuales</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-target="0">0</span>
+            <p>Margen de omisión por fatiga visual</p>
           </div>
           <div class="stat">
             <span class="stat__number" data-target="1">0</span><span class="stat__suffix">s</span>
-            <p>Tiempo de respuesta simulado de la alerta</p>
+            <p>Respuesta inmediata del microcontrolador</p>
           </div>
         </div>
       </div>
@@ -1030,36 +1057,20 @@ html { scrollbar-gutter: stable; }
   <footer class="footer">
     <div class="footer__inner">
       <div>
-        <p class="footer__brand">Sistema de Control de Aforo IRTRA Petapa</p>
-        <p class="footer__sub">Proyecto de ingeniería simulado en Tinkercad. Página informativa del proyecto.</p>
+        <p class="footer__brand">Sistema Autónomo de Control de Aforo IRTRA Petapa</p>
+        <p class="footer__sub">Proyecto de tecnología simulado en Tinkercad e implementado en físico.</p>
       </div>
       <nav class="footer__links">
         <a href="#inicio">Inicio</a>
         <a href="#componentes">Componentes</a>
         <a href="#evidencia">Evidencia</a>
-        <a href="#impacto">Impacto</a>
+        <a href="#impacto">Impacto ODS</a>
       </nav>
     </div>
     <div class="footer__bottom">
       <p>&copy; <span id="year"></span> Sistema de Control de Aforo IRTRA Petapa.</p>
     </div>
   </footer>
-
-  <!-- Reproductor de música flotante -->
-  <div class="music-widget">
-    <div class="music-panel" id="musicPanel">
-      <p class="music-panel__eyebrow">Reproduciendo</p>
-      <p class="music-panel__song" id="songTitle">Die with a smile - Bruno Mars piano cover</p>
-      <div class="music-panel__controls">
-        <button class="music-play" id="musicPlayBtn" type="button" aria-label="Reproducir">▶</button>
-        <p class="music-panel__status" id="musicStatus">Pausado</p>
-      </div>
-    </div>
-    <button class="music-bubble" id="musicBubble" type="button" aria-label="Abrir reproductor de musica">♪</button>
-    <audio id="bgAudio" loop preload="none">
-      <source src="recursos/Musicafondo.mp3" type="audio/mpeg">
-    </audio>
-  </div>
 
   <script src="script.js"></script>
 </body>
