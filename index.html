@@ -86,18 +86,17 @@ ul, ol { margin: 0; padding: 0; }
 
 .eyebrow--dark { color: var(--cyan); }
 
-/* ---------- Animaciones Scroll Corregidas ---------- */
+/* ---------- Animaciones Scroll FIX (Visibilidad Garantizada) ---------- */
 .animate-on-scroll {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-  backface-visibility: hidden;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
-.animate-on-scroll.is-visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+/* Solo oculta antes de cargar si JS está disponible */
+html.js .animate-on-scroll:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 /* ---------- Navbar ---------- */
@@ -1058,7 +1057,7 @@ ul, ol { margin: 0; padding: 0; }
 
         </div>
 
-        <!-- DOCUMENTO DESPLEGABLE (WORD / PDF) -->
+        <!-- DOCUMENTO DESPLEGABLE -->
         <details class="doc-accordion animate-on-scroll">
           <summary class="doc-accordion__summary">
             📄 Ver Documento de Investigación Formal (Word / PDF)
