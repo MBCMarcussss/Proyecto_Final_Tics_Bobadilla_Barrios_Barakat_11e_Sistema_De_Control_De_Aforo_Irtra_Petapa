@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         osc.start();
         osc.stop(audioCtx.currentTime + 0.35);
       } catch (e) {
-        /* Web Audio no disponible: se omite el sonido silenciosamente */
+        /* Web Audio no disponible */
       }
     }
 
@@ -211,46 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statNumbers.forEach((el) => statObserver.observe(el));
   }
 
-  /* ---------- Revelado del diagrama de arquitectura ---------- */
-  const diagram = document.getElementById("diagram");
-
-  if (diagram) {
-    diagram.style.opacity = "0";
-    diagram.style.transform = "translateY(16px)";
-    diagram.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-
-    const diagramObserver = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            diagram.style.opacity = "1";
-            diagram.style.transform = "translateY(0)";
-            obs.unobserve(diagram);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    diagramObserver.observe(diagram);
-  }
-
-  /* ---------- Botón volver arriba ---------- */
-  const backToTop = document.getElementById("backToTop");
-
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("is-visible", window.scrollY > 600);
-    });
-
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-
   /* ---------- Placeholders de la sección Evidencia ---------- */
-  // Mientras no subas las imágenes/videos reales a la carpeta "media/",
-  // cada tarjeta muestra un aviso en vez de un ícono roto.
   function showPlaceholderOnError(mediaId, placeholderId) {
     const mediaEl = document.getElementById(mediaId);
     const placeholderEl = document.getElementById(placeholderId);
@@ -263,8 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mediaEl.addEventListener("error", reveal, true);
 
-    // Si después de un momento el recurso no cargó nada (sin dimensiones/duración),
-    // también mostramos el aviso — cubre el caso de archivos que aún no existen.
     setTimeout(() => {
       const isImg = mediaEl.tagName === "IMG";
       const notLoaded = isImg
@@ -279,8 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
   showPlaceholderOnError("mediaVideoFisico", "mediaVideoFisicoPlaceholder");
 
   /* ---------- Reproductor de música flotante ---------- */
-  // Cuando tengas el nombre real de la canción, cámbialo aquí:
-  const SONG_TITLE = "Título de la canción";
+  const SONG_TITLE = "Die with a smile - Bruno Mars piano cover";
 
   const musicBubble = document.getElementById("musicBubble");
   const musicPanel = document.getElementById("musicPanel");
@@ -290,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const bgAudio = document.getElementById("bgAudio");
 
   if (musicBubble && musicPanel && bgAudio) {
-    songTitleEl.textContent = SONG_TITLE;
+    if (songTitleEl) songTitleEl.textContent = SONG_TITLE;
 
     musicBubble.addEventListener("click", () => {
       musicPanel.classList.toggle("is-open");
@@ -311,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
             musicBubble.classList.add("is-playing");
           })
           .catch(() => {
-            musicStatus.textContent = "Agrega el archivo en media/cancion.mp3";
+            musicStatus.textContent = "Agrega el archivo en recursos/Musicafondo.mp3";
           });
       } else {
         bgAudio.pause();
@@ -326,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     bgAudio.addEventListener("error", () => {
-      musicStatus.textContent = "Agrega el archivo en media/cancion.mp3";
+      musicStatus.textContent = "Agrega el archivo en recursos/Musicafondo.mp3";
     });
   }
 });
