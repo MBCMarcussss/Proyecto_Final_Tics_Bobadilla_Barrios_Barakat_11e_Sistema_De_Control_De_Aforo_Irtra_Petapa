@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (simulator) {
     const MAX = parseInt(maxEl.textContent, 10);
-    const WARNING_RATIO = 0.75;
+    const WARNING_RATIO = 0.70;
     let count = 0;
     let autoInterval = null;
     let audioCtx = null;
@@ -99,20 +99,20 @@ document.addEventListener("DOMContentLoaded", () => {
       barEl.style.width = `${Math.min(ratio * 100, 100)}%`;
 
       let state = "normal";
-      let status = "Aforo normal";
+      let status = "Aforo disponible (Verde)";
 
       if (count >= MAX) {
         state = "alert";
-        status = "Aforo máximo alcanzado — alerta activa";
+        status = "¡Aforo Lleno! — Alerta sonora y luz roja";
       } else if (ratio >= WARNING_RATIO) {
         state = "warning";
-        status = "Aforo alto — acercándose al límite";
+        status = "Cerca del límite — Advertencia (Amarillo)";
       }
 
       const wasAlert = simulator.dataset.state === "alert";
       simulator.dataset.state = state;
       statusEl.textContent = status;
-      metaAlarm.textContent = state === "alert" ? "Activa" : "Inactiva";
+      metaAlarm.textContent = state === "alert" ? "¡ALERTA ACTIVA!" : "Inactivo";
       metaAlarm.classList.toggle("is-flash", state === "alert");
 
       if (state === "alert" && !wasAlert) beep();
@@ -236,55 +236,4 @@ document.addEventListener("DOMContentLoaded", () => {
   showPlaceholderOnError("mediaImgSim", "mediaImgSimPlaceholder");
   showPlaceholderOnError("mediaVideoSim", "mediaVideoSimPlaceholder");
   showPlaceholderOnError("mediaVideoFisico", "mediaVideoFisicoPlaceholder");
-
-  /* ---------- Reproductor de música flotante ---------- */
-  const SONG_TITLE = "Die with a smile - Bruno Mars piano cover";
-
-  const musicBubble = document.getElementById("musicBubble");
-  const musicPanel = document.getElementById("musicPanel");
-  const musicPlayBtn = document.getElementById("musicPlayBtn");
-  const musicStatus = document.getElementById("musicStatus");
-  const songTitleEl = document.getElementById("songTitle");
-  const bgAudio = document.getElementById("bgAudio");
-
-  if (musicBubble && musicPanel && bgAudio) {
-    if (songTitleEl) songTitleEl.textContent = SONG_TITLE;
-
-    musicBubble.addEventListener("click", () => {
-      musicPanel.classList.toggle("is-open");
-    });
-
-    document.addEventListener("click", (event) => {
-      const clickedInside = musicPanel.contains(event.target) || musicBubble.contains(event.target);
-      if (!clickedInside) musicPanel.classList.remove("is-open");
-    });
-
-    musicPlayBtn.addEventListener("click", () => {
-      if (bgAudio.paused) {
-        bgAudio.play()
-          .then(() => {
-            musicPlayBtn.textContent = "⏸";
-            musicPlayBtn.setAttribute("aria-label", "Pausar");
-            musicStatus.textContent = "Reproduciendo";
-            musicBubble.classList.add("is-playing");
-          })
-          .catch(() => {
-            musicStatus.textContent = "Agrega el archivo en recursos/Musicafondo.mp3";
-          });
-      } else {
-        bgAudio.pause();
-      }
-    });
-
-    bgAudio.addEventListener("pause", () => {
-      musicPlayBtn.textContent = "▶";
-      musicPlayBtn.setAttribute("aria-label", "Reproducir");
-      musicStatus.textContent = "Pausado";
-      musicBubble.classList.remove("is-playing");
-    });
-
-    bgAudio.addEventListener("error", () => {
-      musicStatus.textContent = "Agrega el archivo en recursos/Musicafondo.mp3";
-    });
-  }
 });
