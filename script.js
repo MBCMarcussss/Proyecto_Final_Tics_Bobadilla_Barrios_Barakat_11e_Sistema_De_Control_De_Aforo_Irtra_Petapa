@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Año dinámico ---------- */
@@ -42,16 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sections.forEach((section) => navObserver.observe(section));
 
-  /* ---------- Animaciones Scroll (Reveal Corregidas) ---------- */
+  /* ---------- Animaciones Scroll (Apertura segura) ---------- */
   const animatedElements = document.querySelectorAll(".animate-on-scroll");
-
-  // Revelar elementos que ya están visibles al cargar la página de inmediato
-  animatedElements.forEach((el) => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-      el.classList.add("is-visible");
-    }
-  });
 
   const revealObserver = new IntersectionObserver(
     (entries, obs) => {
@@ -62,12 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.05 }
+    { threshold: 0.01 }
   );
 
-  animatedElements.forEach((el) => revealObserver.observe(el));
+  animatedElements.forEach((el) => {
+    revealObserver.observe(el);
+    // Forzar visibilidad si el elemento está visible al cargar
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      el.classList.add("is-visible");
+    }
+  });
 
-  /* ---------- Simulador de aforo (Límite 20) ---------- */
+  /* ---------- Simulador de aforo ---------- */
   const simulator = document.getElementById("simulator");
   const countEl = document.getElementById("simCount");
   const maxEl = document.getElementById("simMax");
@@ -222,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mediaEl.addEventListener("error", reveal, true);
 
-    // Detección si los recursos de imagen o vídeo fallan
     setTimeout(() => {
       const isImg = mediaEl.tagName === "IMG";
       const notLoaded = isImg
