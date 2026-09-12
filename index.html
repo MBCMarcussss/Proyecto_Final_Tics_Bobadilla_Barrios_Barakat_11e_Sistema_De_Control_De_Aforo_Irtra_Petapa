@@ -86,17 +86,18 @@ ul, ol { margin: 0; padding: 0; }
 
 .eyebrow--dark { color: var(--cyan); }
 
-/* ---------- Animaciones Scroll ---------- */
+/* ---------- Animaciones Scroll Corregidas ---------- */
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
 .animate-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* ---------- Navbar ---------- */
@@ -587,7 +588,7 @@ ul, ol { margin: 0; padding: 0; }
   background: rgba(255, 255, 255, 0.6);
 }
 
-.media-placeholder[hidden] { display: none; }
+.media-placeholder[hidden] { display: none !important; }
 
 .media-placeholder__icon {
   width: 38px;
@@ -1070,8 +1071,8 @@ ul, ol { margin: 0; padding: 0; }
               </a>
             </div>
             <div class="doc-frame-wrapper">
-              <iframe src="recursos/Investigacion_IRTRA_Petapa.pdf" title="Previsualización del Documento de Investigación">
-                <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/Investigacion_IRTRA_Petapa.docx">descargar el documento Word aquí</a>.</p>
+              <iframe src="recursos/wordInvestiga.pdf" title="Previsualización del Documento de Investigación">
+                <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/wordInvestiga.pdf">descargar el documento aquí</a>.</p>
               </iframe>
             </div>
           </div>
