@@ -714,6 +714,37 @@ html.js .animate-on-scroll:not(.is-visible) {
   gap: 12px;
 }
 
+/* Cuadro Informativo para Vista Previa de Word */
+.word-preview-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  background: #ffffff;
+}
+
+.word-preview-box__icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.word-preview-box h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--navy-deep);
+  margin: 0 0 8px 0;
+}
+
+.word-preview-box p {
+  font-size: 0.95rem;
+  color: var(--gray);
+  max-width: 480px;
+  margin-bottom: 24px;
+}
+
 /* ---------- Footer ---------- */
 .footer { 
   background: var(--navy-deep); 
@@ -1057,10 +1088,10 @@ html.js .animate-on-scroll:not(.is-visible) {
 
         </div>
 
-        <!-- DOCUMENTO DESPLEGABLE -->
-        <details class="doc-accordion animate-on-scroll">
+        <!-- DOCUMENTO DESPLEGABLE PDF -->
+        <details class="doc-accordion animate-on-scroll" id="docPdfAccordion">
           <summary class="doc-accordion__summary">
-            📄 Ver Documento de Investigación Formal (Word / PDF)
+            📄 Ver Documento de Investigación Formal (PDF)
           </summary>
           <div class="doc-accordion__content">
             <div class="doc-download-bar">
@@ -1070,9 +1101,34 @@ html.js .animate-on-scroll:not(.is-visible) {
               </a>
             </div>
             <div class="doc-frame-wrapper">
-              <iframe src="recursos/wordInvestiga.pdf" title="Previsualización del Documento de Investigación">
+              <iframe src="recursos/wordInvestiga.pdf" title="Previsualización del Documento de Investigación PDF">
                 <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/wordInvestiga.pdf">descargar el documento aquí</a>.</p>
               </iframe>
+            </div>
+          </div>
+        </details>
+
+        <!-- DOCUMENTO DESPLEGABLE WORD (.docx) -->
+        <details class="doc-accordion animate-on-scroll" id="docWordAccordion">
+          <summary class="doc-accordion__summary">
+            📝 Ver Documento de Investigación Formal (Word)
+          </summary>
+          <div class="doc-accordion__content">
+            <div class="doc-download-bar">
+              <p style="margin: 0;"><strong>Documento Editable de Investigación</strong> — Proyecto IRTRA Petapa</p>
+              <a href="recursos/wordInvestiga.docx" class="btn btn--solid" download style="padding: 8px 16px; font-size: 0.85rem;">
+                📥 Descargar Archivo Word (.docx)
+              </a>
+            </div>
+            <div class="doc-frame-wrapper">
+              <div class="word-preview-box">
+                <div class="word-preview-box__icon">📘</div>
+                <h4>Archivo de Microsoft Word (.docx)</h4>
+                <p>Los navegadores no soportan la visualización directa de archivos .docx. Puedes descargarlo directamente para editarlo o revisarlo localmente.</p>
+                <a href="recursos/wordInvestiga.docx" class="btn btn--solid" download>
+                  Descargar wordInvestiga.docx
+                </a>
+              </div>
             </div>
           </div>
         </details>
