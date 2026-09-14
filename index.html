@@ -641,6 +641,24 @@ html.js .animate-on-scroll:not(.is-visible) {
   border-radius: var(--radius-sm);
 }
 
+/* Tarjeta de archivo PDF interactiva */
+.pdf-card-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 24px;
+  background: linear-gradient(135deg, #101a37 0%, #16213f 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.pdf-card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 8px;
+}
+
 /* Document Accordion Details */
 .doc-accordion {
   margin-top: 32px;
@@ -1055,31 +1073,25 @@ html.js .animate-on-scroll:not(.is-visible) {
             </div>
           </article>
 
-          <!-- INFOGRAFÍA DE INVESTIGACIÓN (PDF SIN IFRAME) -->
+          <!-- INFOGRAFÍA DE INVESTIGACIÓN (SOLUCIÓN FIX GITHUB PAGES) -->
           <article class="media-card animate-on-scroll">
-            <div class="media-frame" style="height: 380px;">
-              <object 
-                data="recursos/infografia.pdf#toolbar=0&navpanes=0" 
-                type="application/pdf" 
-                width="100%" 
-                height="100%">
-                <embed src="recursos/infografia.pdf" type="application/pdf" width="100%" height="100%" />
-                <div class="media-placeholder">
-                  <span class="media-placeholder__icon">📄</span>
-                  <p>Abre o descarga la infografía para visualizarla completa.</p>
-                </div>
-              </object>
+            <div class="media-frame">
+              <div class="pdf-card-preview">
+                <div class="pdf-card-icon">📊</div>
+                <h4 style="margin: 0 0 4px 0; font-size: 1rem; color: #fff;">Infografía PDF</h4>
+                <p style="font-size: 0.75rem; color: #a9b5cf; margin: 0;">Haz clic abajo para abrir o descargar la infografía completa.</p>
+              </div>
             </div>
             <div class="media-card__body">
               <span class="media-card__tag">Infografía PDF</span>
               <h3>Infografía de la Investigación</h3>
               <p>Resumen visual explicativo sobre los hallazgos, componentes y diseño del sistema.</p>
-              <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
-                <a href="recursos/infografia.pdf" target="_blank" class="btn btn--ghost" style="padding: 6px 12px; font-size: 0.8rem; color: var(--navy-deep); border-color: var(--border);">
-                  👁️ Abrir en nueva pestaña
+              <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                <a href="recursos/infografia.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--solid" style="padding: 8px 14px; font-size: 0.82rem; flex: 1; text-align: center;">
+                  👁️ Ver Infografía
                 </a>
-                <a href="recursos/infografia.pdf" class="btn btn--solid" download style="padding: 6px 12px; font-size: 0.8rem;">
-                  📥 Descargar PDF
+                <a href="recursos/infografia.pdf" download class="btn btn--ghost" style="padding: 8px 14px; font-size: 0.82rem; color: var(--navy-deep); border-color: var(--border); flex: 1; text-align: center;">
+                  📥 Descargar
                 </a>
               </div>
             </div>
@@ -1087,7 +1099,7 @@ html.js .animate-on-scroll:not(.is-visible) {
 
         </div>
 
-        <!-- DOCUMENTO DESPLEGABLE PDF (SIN IFRAME) -->
+        <!-- DOCUMENTO DESPLEGABLE PDF -->
         <details class="doc-accordion animate-on-scroll" id="docPdfAccordion">
           <summary class="doc-accordion__summary">
             📄 Ver Documento de Investigación Formal (PDF)
@@ -1095,27 +1107,29 @@ html.js .animate-on-scroll:not(.is-visible) {
           <div class="doc-accordion__content">
             <div class="doc-download-bar">
               <p style="margin: 0;"><strong>Documento Técnico de Investigación</strong> — Proyecto IRTRA Petapa</p>
-              <a href="recursos/wordInvestiga.pdf" class="btn btn--solid" download style="padding: 8px 16px; font-size: 0.85rem;">
-                📥 Descargar Archivo PDF (.pdf)
-              </a>
+              <div style="display: flex; gap: 8px;">
+                <a href="recursos/wordInvestiga.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="padding: 8px 16px; font-size: 0.85rem; color: var(--navy-deep); border-color: var(--border);">
+                  👁️ Abrir en nueva pestaña
+                </a>
+                <a href="recursos/wordInvestiga.pdf" download class="btn btn--solid" style="padding: 8px 16px; font-size: 0.85rem;">
+                  📥 Descargar PDF (.pdf)
+                </a>
+              </div>
             </div>
-            <div class="doc-frame-wrapper" style="height: 600px;">
-              <object data="recursos/wordInvestiga.pdf" type="application/pdf" width="100%" height="100%">
-                <embed src="recursos/wordInvestiga.pdf" type="application/pdf" width="100%" height="100%" />
-                <div class="word-preview-box">
-                  <div class="word-preview-box__icon">📄</div>
-                  <h4>Documento de Investigación (.pdf)</h4>
-                  <p>Haz clic abajo para abrir o descargar la versión en PDF del documento.</p>
-                  <a href="recursos/wordInvestiga.pdf" target="_blank" class="btn btn--solid">
-                    Ver documento completo
-                  </a>
-                </div>
-              </object>
+            <div class="doc-frame-wrapper" style="padding: 40px; text-align: center; background: var(--navy-card); color: #fff;">
+              <span style="font-size: 3rem;">📄</span>
+              <h4 style="color: #fff; margin: 8px 0;">Documento de Investigación (PDF)</h4>
+              <p style="color: #a9b5cf; max-width: 450px; margin: 0 auto 16px auto; font-size: 0.9rem;">
+                Para una mejor visualización sin restricciones del navegador, abre el documento en una pestaña nueva o descárgalo a tu dispositivo.
+              </p>
+              <a href="recursos/wordInvestiga.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--solid">
+                Abrir Documento Completo
+              </a>
             </div>
           </div>
         </details>
 
-        <!-- DOCUMENTO DESPLEGABLE WORD (.docx CON VISOR ONLINE) -->
+        <!-- DOCUMENTO DESPLEGABLE WORD (.docx) -->
         <details class="doc-accordion animate-on-scroll" id="docWordAccordion">
           <summary class="doc-accordion__summary">
             📝 Ver Documento de Investigación Formal (Word)
@@ -1127,12 +1141,15 @@ html.js .animate-on-scroll:not(.is-visible) {
                 📥 Descargar Archivo Word (.docx)
               </a>
             </div>
-            <div class="doc-frame-wrapper">
-              <!-- Visor de Office Online (requiere que el sitio esté publicado online) -->
-              <iframe 
-                class="doc-iframe" 
-                src="https://view.officeapps.live.com/op/embed.aspx?src=TU_DOMINIO_AQUI/recursos/wordInvestiga.docx">
-              </iframe>
+            <div class="doc-frame-wrapper" style="padding: 40px; text-align: center; background: #f8fafc;">
+              <span style="font-size: 3rem;">📝</span>
+              <h4 style="margin: 8px 0;">Archivo editable de Word (.docx)</h4>
+              <p style="color: var(--gray); max-width: 450px; margin: 0 auto 16px auto; font-size: 0.9rem;">
+                Descarga el archivo original en formato Word para su revisión o edición.
+              </p>
+              <a href="recursos/wordInvestiga.docx" download class="btn btn--solid">
+                Descargar .docx
+              </a>
             </div>
           </div>
         </details>
