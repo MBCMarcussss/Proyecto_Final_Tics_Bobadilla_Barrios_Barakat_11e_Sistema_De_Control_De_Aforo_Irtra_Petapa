@@ -247,4 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
   showPlaceholderOnError("mediaImgSim", "mediaImgSimPlaceholder");
   showPlaceholderOnError("mediaVideoSim", "mediaVideoSimPlaceholder");
   showPlaceholderOnError("mediaVideoFisico", "mediaVideoFisicoPlaceholder");
+
+  /* ---------- Placeholder de la vista previa del falso Word ---------- */
+  showPlaceholderOnError("wordPreviewImg", "wordPreviewPlaceholder");
 });
