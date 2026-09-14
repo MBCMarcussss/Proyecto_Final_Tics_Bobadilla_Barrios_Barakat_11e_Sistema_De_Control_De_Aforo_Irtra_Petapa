@@ -86,14 +86,13 @@ ul, ol { margin: 0; padding: 0; }
 
 .eyebrow--dark { color: var(--cyan); }
 
-/* ---------- Animaciones Scroll FIX (Visibilidad Garantizada) ---------- */
+/* ---------- Animaciones Scroll FIX ---------- */
 .animate-on-scroll {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
-/* Solo oculta antes de cargar si JS está disponible */
 html.js .animate-on-scroll:not(.is-visible) {
   opacity: 0;
   transform: translateY(20px);
@@ -642,7 +641,7 @@ html.js .animate-on-scroll:not(.is-visible) {
   border-radius: var(--radius-sm);
 }
 
-/* Document Dropdown Details */
+/* Document Accordion Details */
 .doc-accordion {
   margin-top: 32px;
   background: var(--paper);
@@ -692,17 +691,10 @@ html.js .animate-on-scroll:not(.is-visible) {
 
 .doc-frame-wrapper {
   width: 100%;
-  height: 600px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: #f1f5f9;
-}
-
-.doc-frame-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
 }
 
 .doc-download-bar {
@@ -714,7 +706,7 @@ html.js .animate-on-scroll:not(.is-visible) {
   gap: 12px;
 }
 
-/* Cuadro Informativo para Vista Previa de Word */
+/* Box Informativo para Word */
 .word-preview-box {
   display: flex;
   flex-direction: column;
@@ -1086,19 +1078,15 @@ html.js .animate-on-scroll:not(.is-visible) {
             </div>
           </article>
 
-          
-<!-- INFOGRAFÍA DE INVESTIGACIÓN (PDF SIN IFRAME) -->
+          <!-- INFOGRAFÍA DE INVESTIGACIÓN (PDF SIN IFRAME) -->
           <article class="media-card animate-on-scroll">
             <div class="media-frame" style="height: 380px;">
-              <!-- Uso de <object> en lugar de <iframe> -->
               <object 
                 data="recursos/infografia.pdf#toolbar=0&navpanes=0" 
                 type="application/pdf" 
                 width="100%" 
                 height="100%">
-                <!-- Alternate usando <embed> si el explorador bloquea object -->
                 <embed src="recursos/infografia.pdf" type="application/pdf" width="100%" height="100%" />
-                <!-- Caída visual si no hay soporte de PDF -->
                 <div class="media-placeholder">
                   <span class="media-placeholder__icon">📄</span>
                   <p>Abre o descarga la infografía para visualizarla completa.</p>
@@ -1120,7 +1108,9 @@ html.js .animate-on-scroll:not(.is-visible) {
             </div>
           </article>
 
-        <!-- DOCUMENTO DESPLEGABLE PDF -->
+        </div>
+
+        <!-- DOCUMENTO DESPLEGABLE PDF (SIN IFRAME) -->
         <details class="doc-accordion animate-on-scroll" id="docPdfAccordion">
           <summary class="doc-accordion__summary">
             📄 Ver Documento de Investigación Formal (PDF)
@@ -1132,15 +1122,23 @@ html.js .animate-on-scroll:not(.is-visible) {
                 📥 Descargar Archivo PDF (.pdf)
               </a>
             </div>
-            <div class="doc-frame-wrapper">
-              <iframe src="recursos/wordInvestiga.pdf" title="Previsualización del Documento de Investigación PDF">
-                <p>Tu navegador no admite la previsualización de archivos PDF. Puedes <a href="recursos/wordInvestiga.pdf">descargar el documento aquí</a>.</p>
-              </iframe>
+            <div class="doc-frame-wrapper" style="height: 600px;">
+              <object data="recursos/wordInvestiga.pdf" type="application/pdf" width="100%" height="100%">
+                <embed src="recursos/wordInvestiga.pdf" type="application/pdf" width="100%" height="100%" />
+                <div class="word-preview-box">
+                  <div class="word-preview-box__icon">📄</div>
+                  <h4>Documento de Investigación (.pdf)</h4>
+                  <p>Haz clic abajo para abrir o descargar la versión en PDF del documento.</p>
+                  <a href="recursos/wordInvestiga.pdf" target="_blank" class="btn btn--solid">
+                    Ver documento completo
+                  </a>
+                </div>
+              </object>
             </div>
           </div>
         </details>
 
-        <!-- DOCUMENTO DESPLEGABLE WORD (.docx) -->
+        <!-- DOCUMENTO DESPLEGABLE WORD (.docx SIN IFRAME) -->
         <details class="doc-accordion animate-on-scroll" id="docWordAccordion">
           <summary class="doc-accordion__summary">
             📝 Ver Documento de Investigación Formal (Word)
@@ -1152,14 +1150,16 @@ html.js .animate-on-scroll:not(.is-visible) {
                 📥 Descargar Archivo Word (.docx)
               </a>
             </div>
-            <div class="doc-frame-wrapper">
+            <div class="doc-frame-wrapper" style="height: auto; min-height: 220px; background: #ffffff;">
               <div class="word-preview-box">
                 <div class="word-preview-box__icon">📘</div>
-                <h4>Archivo de Microsoft Word (.docx)</h4>
-                <p>Los navegadores no soportan la visualización directa de archivos .docx. Puedes descargarlo directamente para editarlo o revisarlo localmente.</p>
-                <a href="recursos/wordInvestiga.docx" class="btn btn--solid" download>
-                  Descargar wordInvestiga.docx
-                </a>
+                <h4>Documento de Investigación (.docx)</h4>
+                <p>El archivo editable se encuentra listo para su descarga y lectura local en Microsoft Word o Google Docs.</p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                  <a href="recursos/wordInvestiga.docx" class="btn btn--solid" download>
+                    📥 Descargar wordInvestiga.docx
+                  </a>
+                </div>
               </div>
             </div>
           </div>
