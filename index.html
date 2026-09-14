@@ -1086,27 +1086,39 @@ html.js .animate-on-scroll:not(.is-visible) {
             </div>
           </article>
 
-          <!-- INFOGRAFÍA DE INVESTIGACIÓN (PDF) -->
+          
+<!-- INFOGRAFÍA DE INVESTIGACIÓN (PDF SIN IFRAME) -->
           <article class="media-card animate-on-scroll">
-            <div class="media-frame">
-              <iframe 
-                src="recursos/infografia.pdf" 
-                title="Infografía de la Investigación"
-                style="width: 100%; height: 100%; border: none;">
-                <p>Tu navegador no admite iframes. <a href="recursos/infografia.pdf">Descarga la infografía en PDF aquí</a>.</p>
-              </iframe>
+            <div class="media-frame" style="height: 380px;">
+              <!-- Uso de <object> en lugar de <iframe> -->
+              <object 
+                data="recursos/infografia.pdf#toolbar=0&navpanes=0" 
+                type="application/pdf" 
+                width="100%" 
+                height="100%">
+                <!-- Alternate usando <embed> si el explorador bloquea object -->
+                <embed src="recursos/infografia.pdf" type="application/pdf" width="100%" height="100%" />
+                <!-- Caída visual si no hay soporte de PDF -->
+                <div class="media-placeholder">
+                  <span class="media-placeholder__icon">📄</span>
+                  <p>Abre o descarga la infografía para visualizarla completa.</p>
+                </div>
+              </object>
             </div>
             <div class="media-card__body">
               <span class="media-card__tag">Infografía PDF</span>
               <h3>Infografía de la Investigación</h3>
               <p>Resumen visual explicativo sobre los hallazgos, componentes y diseño del sistema.</p>
-              <a href="recursos/Infografia.pdf" class="btn btn--solid" download style="margin-top: 12px; align-self: flex-start; padding: 6px 14px; font-size: 0.8rem;">
-                📥 Descargar Infografía PDF
-              </a>
+              <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+                <a href="recursos/infografia.pdf" target="_blank" class="btn btn--ghost" style="padding: 6px 12px; font-size: 0.8rem; color: var(--navy-deep); border-color: var(--border);">
+                  👁️ Abrir en nueva pestaña
+                </a>
+                <a href="recursos/infografia.pdf" class="btn btn--solid" download style="padding: 6px 12px; font-size: 0.8rem;">
+                  📥 Descargar PDF
+                </a>
+              </div>
             </div>
           </article>
-
-        </div>
 
         <!-- DOCUMENTO DESPLEGABLE PDF -->
         <details class="doc-accordion animate-on-scroll" id="docPdfAccordion">
