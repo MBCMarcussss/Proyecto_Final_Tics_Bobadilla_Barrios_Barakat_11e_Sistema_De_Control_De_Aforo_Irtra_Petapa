@@ -706,35 +706,12 @@ html.js .animate-on-scroll:not(.is-visible) {
   gap: 12px;
 }
 
-/* Box Informativo para Word */
-.word-preview-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 40px 20px;
-  text-align: center;
-  background: #ffffff;
-}
-
-.word-preview-box__icon {
-  font-size: 4rem;
-  margin-bottom: 16px;
-}
-
-.word-preview-box h4 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: var(--navy-deep);
-  margin: 0 0 8px 0;
-}
-
-.word-preview-box p {
-  font-size: 0.95rem;
-  color: var(--gray);
-  max-width: 480px;
-  margin-bottom: 24px;
+/* Visor de Documentos */
+.doc-iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  display: block;
 }
 
 /* ---------- Footer ---------- */
@@ -1098,7 +1075,7 @@ html.js .animate-on-scroll:not(.is-visible) {
               <h3>Infografía de la Investigación</h3>
               <p>Resumen visual explicativo sobre los hallazgos, componentes y diseño del sistema.</p>
               <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
-                <a href="recursos/Infografia.pdf" target="_blank" class="btn btn--ghost" style="padding: 6px 12px; font-size: 0.8rem; color: var(--navy-deep); border-color: var(--border);">
+                <a href="recursos/infografia.pdf" target="_blank" class="btn btn--ghost" style="padding: 6px 12px; font-size: 0.8rem; color: var(--navy-deep); border-color: var(--border);">
                   👁️ Abrir en nueva pestaña
                 </a>
                 <a href="recursos/infografia.pdf" class="btn btn--solid" download style="padding: 6px 12px; font-size: 0.8rem;">
@@ -1138,7 +1115,7 @@ html.js .animate-on-scroll:not(.is-visible) {
           </div>
         </details>
 
-        <!-- DOCUMENTO DESPLEGABLE WORD (.docx SIN IFRAME) -->
+        <!-- DOCUMENTO DESPLEGABLE WORD (.docx CON VISOR ONLINE) -->
         <details class="doc-accordion animate-on-scroll" id="docWordAccordion">
           <summary class="doc-accordion__summary">
             📝 Ver Documento de Investigación Formal (Word)
@@ -1150,17 +1127,12 @@ html.js .animate-on-scroll:not(.is-visible) {
                 📥 Descargar Archivo Word (.docx)
               </a>
             </div>
-            <div class="doc-frame-wrapper" style="height: auto; min-height: 220px; background: #ffffff;">
-              <div class="word-preview-box">
-                <div class="word-preview-box__icon">📘</div>
-                <h4>Documento de Investigación (.docx)</h4>
-                <p>El archivo editable se encuentra listo para su descarga y lectura local en Microsoft Word o Google Docs.</p>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-                  <a href="recursos/wordInvestiga.docx" class="btn btn--solid" download>
-                    📥 Descargar wordInvestiga.docx
-                  </a>
-                </div>
-              </div>
+            <div class="doc-frame-wrapper">
+              <!-- Visor de Office Online (requiere que el sitio esté publicado online) -->
+              <iframe 
+                class="doc-iframe" 
+                src="https://view.officeapps.live.com/op/embed.aspx?src=TU_DOMINIO_AQUI/recursos/wordInvestiga.docx">
+              </iframe>
             </div>
           </div>
         </details>
