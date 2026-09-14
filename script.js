@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animatedElements.forEach((el) => {
     revealObserver.observe(el);
-    // Forzar visibilidad si el elemento está visible al cargar
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight) {
       el.classList.add("is-visible");
@@ -82,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const metaOut = document.getElementById("metaOut");
   const metaAlarm = document.getElementById("metaAlarm");
 
-  if (simulator) {
+  if (simulator && maxEl) {
     const MAX = parseInt(maxEl.textContent, 10);
     const WARNING_RATIO = 0.70;
     let count = 0;
@@ -107,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function flashMeta(el, timeoutRef) {
+      if (!el) return;
       el.textContent = "Detectado";
       el.classList.add("is-flash");
       clearTimeout(timeoutRef.id);
@@ -117,17 +117,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function triggerBump() {
-      countEl.classList.add("bump");
-      setTimeout(() => countEl.classList.remove("bump"), 150);
+      if (countEl) {
+        countEl.classList.add("bump");
+        setTimeout(() => countEl.classList.remove("bump"), 150);
+      }
     }
 
     const inFlashRef = { id: null };
     const outFlashRef = { id: null };
 
     function render() {
-      countEl.textContent = count;
+      if (countEl) countEl.textContent = count;
       const ratio = count / MAX;
-      barEl.style.width = `${Math.min(ratio * 100, 100)}%`;
+      if (barEl) barEl.style.width = `${Math.min(ratio * 100, 100)}%`;
 
       let state = "normal";
       let status = "Aforo disponible (Verde)";
@@ -142,17 +144,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const wasAlert = simulator.dataset.state === "alert";
       simulator.dataset.state = state;
-      statusEl.textContent = status;
-      metaAlarm.textContent = state === "alert" ? "¡ALERTA ACTIVA!" : "Inactivo";
-      metaAlarm.classList.toggle("is-flash", state === "alert");
+      if (statusEl) statusEl.textContent = status;
+      if (metaAlarm) {
+        metaAlarm.textContent = state === "alert" ? "¡ALERTA ACTIVA!" : "Inactivo";
+        metaAlarm.classList.toggle("is-flash", state === "alert");
+      }
 
       if (state === "alert" && !wasAlert) beep();
 
       if (count >= MAX && autoInterval) {
         clearInterval(autoInterval);
         autoInterval = null;
-        btnAuto.classList.remove("is-active");
-        btnAuto.textContent = "Simulación automática";
+        if (btnAuto) {
+          btnAuto.classList.remove("is-active");
+          btnAuto.textContent = "Simulación automática";
+        }
       }
     }
 
@@ -180,8 +186,10 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(autoInterval);
         autoInterval = null;
       }
-      btnAuto.classList.remove("is-active");
-      btnAuto.textContent = "Simulación automática";
+      if (btnAuto) {
+        btnAuto.classList.remove("is-active");
+        btnAuto.textContent = "Simulación automática";
+      }
       render();
     }
 
@@ -189,23 +197,27 @@ document.addEventListener("DOMContentLoaded", () => {
       if (autoInterval) {
         clearInterval(autoInterval);
         autoInterval = null;
-        btnAuto.classList.remove("is-active");
-        btnAuto.textContent = "Simulación automática";
+        if (btnAuto) {
+          btnAuto.classList.remove("is-active");
+          btnAuto.textContent = "Simulación automática";
+        }
         return;
       }
 
-      btnAuto.classList.add("is-active");
-      btnAuto.textContent = "Detener simulación";
+      if (btnAuto) {
+        btnAuto.classList.add("is-active");
+        btnAuto.textContent = "Detener simulación";
+      }
       autoInterval = setInterval(() => {
         const goingIn = Math.random() > 0.32;
         if (goingIn) enter(); else exit();
       }, 700);
     }
 
-    btnIn.addEventListener("click", enter);
-    btnOut.addEventListener("click", exit);
-    btnReset.addEventListener("click", reset);
-    btnAuto.addEventListener("click", toggleAuto);
+    if (btnIn) btnIn.addEventListener("click", enter);
+    if (btnOut) btnOut.addEventListener("click", exit);
+    if (btnReset) btnReset.addEventListener("click", reset);
+    if (btnAuto) btnAuto.addEventListener("click", toggleAuto);
 
     render();
   }
